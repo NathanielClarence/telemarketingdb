@@ -44,7 +44,8 @@ class Ui(QtWidgets.QWidget):
         self.btn_delete.clicked.connect(self.removeSA)
 
         try:
-            self.query =  "SELECT user from user where user not like '%mysql%' and user not like 'root' and user not like %s;"
+            self.query =  "SELECT user from user where user not like '%mysql%' and user not like 'root' and user not like" \
+                          " %s and host like '\%';"
             self.mycursor.execute(self.query, (self.user,))
             self.superadmins = self.mycursor.fetchall()
             for x in self.superadmins:

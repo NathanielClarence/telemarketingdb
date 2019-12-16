@@ -37,8 +37,8 @@ class Ui(QtWidgets.QWidget):
         self.btn_back.clicked.connect(self.back)
 
     def exportToXlsx(self):
-        if not os.path.exists(os.getcwd() + "\\File Export"):
-            os.makedirs(os.getcwd() + "\\File Export")
+        if not os.path.exists(os.getcwd() + "\\Export Files"):
+            os.makedirs(os.getcwd() + "\\Export Files")
 
         self.exportFile = self.cmb_prod.currentText()
         if self.exportType == 'telle':

@@ -65,7 +65,7 @@ class Ui(QtWidgets.QWidget):
             self.mycursor.execute("use mysql;")
 
             self.buttonReply = QtWidgets.QMessageBox
-            self.warning = self.buttonReply.question(self, 'Tambah produk', self.cmb_privilege.currentText()+" berhasil ditambahkan.",
+            self.warning = self.buttonReply.question(self, 'Tambah produk', self.name+" berhasil ditambahkan.",
                                                      QtWidgets.QMessageBox.Ok)
             self.closeWin()
         except Exception as e:

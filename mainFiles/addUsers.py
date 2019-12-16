@@ -122,13 +122,15 @@ class Ui(QtWidgets.QWidget):
                 self.prod = "all"
             else:
                 self.privilege = 'telle'
-                self.prod = self.products[self.cmb_products.currentIndex()][1]
+                self.prod = self.products[self.cmb_product.currentIndex()][1]
+                #print(self.prod)
 
             self.query = "INSERT INTO "+self.usedb+".admins(name, password, username, privilege, product) VALUES (%s, sha2(%s, 512), %s, %s, %s);"
             self.mycursor.execute(self.query, (self.name, self.passw, self.uname, self.privilege, self.prod))
+            self.mycursor.execute("use mysql;")
 
             self.buttonReply = QtWidgets.QMessageBox
-            self.warning = self.buttonReply.question(self, 'Tambah pengguna', self.cmb_privilege.currentText()+" berhasil ditambahkan.",
+            self.warning = self.buttonReply.question(self, 'Tambah pengguna', self.name+" berhasil ditambahkan.",
                                                      QtWidgets.QMessageBox.Ok)
             self.closeWin()
         except Exception as e:

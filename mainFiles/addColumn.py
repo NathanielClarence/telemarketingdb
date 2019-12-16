@@ -2,13 +2,14 @@ from PyQt5 import QtWidgets, uic
 import re
 
 class Ui(QtWidgets.QWidget):
-    def __init__(self, mycursor):
+    def __init__(self, mycursor, parentWin):
         super(Ui, self).__init__()
         uic.loadUi('assets/ui/addColumn.ui', self)
         self.setFixedSize(self.width(), self.height())
         self.show()
 
         self.mycursor = mycursor
+        self.parentWin = parentWin
 
         self.initUI()
 

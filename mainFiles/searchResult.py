@@ -128,10 +128,10 @@ class Ui(QtWidgets.QWidget):
                 if self.sFollUp[0] == "Tertarik":
                     self.followUp.setEnabled(True)
             except Exception as e:
-                print(self.sFollUp)
-                #self.buttonReply = QtWidgets.QMessageBox
-                #self.warning = self.buttonReply.question(self, 'WARNING', str(e),
-                                                         #QtWidgets.QMessageBox.Ok)
+                print('')
+                '''self.buttonReply = QtWidgets.QMessageBox
+                self.warning = self.buttonReply.question(self, 'WARNING', str(e),
+                                                         QtWidgets.QMessageBox.Ok)'''
 
         return self.sgroupbox
 

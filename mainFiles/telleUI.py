@@ -1,13 +1,14 @@
 from PyQt5 import uic, QtWidgets
 from searchHistory import Ui as srcHistory
 from datetime import datetime
+from followUp_PL import Ui as follupPL
+from followUp_CC import Ui as follupCC
 import sys
 
 class Ui(QtWidgets.QWidget):
     def __init__(self, priv, parentWin, mycursor, user, product, target=None, recontact = None):
         super(Ui, self).__init__()
         uic.loadUi('assets/ui/telleUI.ui', self)
-        self.setFixedSize(self.width(), self.height())
         self.show()
 
         self.priv = priv
@@ -19,8 +20,12 @@ class Ui(QtWidgets.QWidget):
         self.targetID = target
         self.recontact = recontact
 
+        #print("badabu")
         self.initUi()
+        #print("baboon")
         self.initAddCol()
+
+        self.setFixedSize(self.width(), self.height())
 
         if self.recontact:
             self.btn_save.setEnabled(True)
@@ -55,6 +60,7 @@ class Ui(QtWidgets.QWidget):
             self.mycursor.execute(self.query)
             self.dd = self.mycursor.fetchone()
             for x in range(len(self.colAdded)):
+                print(self.dd[x])
                 self.colAdded[x].setText(self.dd[x])
         except Exception as e:
             self.buttonReply = QtWidgets.QMessageBox
@@ -104,12 +110,14 @@ class Ui(QtWidgets.QWidget):
         self.btn_abstain.clicked.connect(self.abs)
         self.btn_save.clicked.connect(self.save)
         self.btn_history.clicked.connect(self.openHistory)
+        self.btn_follup.clicked.connect(self.followUp)
 
         self.lbl_product.setText(self.prd.upper())
 
         #get customer data
         if self.targetID!= None:
-            self.query = "select nama, telp, alamat, asal_data, no_ktp, penghasilan, unique_code, id, cc from customers where id = "+str(self.targetID)+";"
+            self.query = "select nama, telp, alamat, asal_data, no_ktp, penghasilan, unique_code, id, cc, date_of_birth" \
+                         " from customers where id = "+str(self.targetID)+";"
             self.btn_next.setVisible(False)
             self.btn_next.setEnabled(False)
         else:
@@ -145,7 +153,7 @@ class Ui(QtWidgets.QWidget):
                 self.note = None
                 self.recontact = None
         except Exception as e:
-            print(e)
+            #print(e)
             self.buttonReply = QtWidgets.QMessageBox
             self.warning = self.buttonReply.question(self, 'WARNING', "Belum ada data",
                                                      QtWidgets.QMessageBox.Ok)
@@ -169,6 +177,17 @@ class Ui(QtWidgets.QWidget):
         self.in_source.setText(self.cust_data[3])
         self.in_dob.setDate(self.cust_data[9])
 
+    def followUp(self):
+        if self.prd.lower() == 'pl':
+            self.follupWindow = QtWidgets.QWidget()
+            self.follupWindow.ui = follupPL(self.priv, self.parentWin, self.mycursor, self.user, self.prd, str(self.cust_data[7]))
+            self.close()
+        else:
+            self.follupWindow = QtWidgets.QWidget()
+            self.follupWindow.ui = follupPL(self.priv, self.parentWin, self.mycursor, self.user, self.prd,
+                                            str(self.cust_data[7]))
+            self.close()
+
     def openHistory(self):
         try:
             self.query = "select id, nama, telp, alamat, asal_data, fetched, no_ktp, penghasilan, " + self.table + ".unique_code, cc" \
@@ -180,7 +199,7 @@ class Ui(QtWidgets.QWidget):
             self.follow.ui = srcHistory(self.priv, self, self.mycursor, self.result, self.user,
                                     self.prd)
         except Exception as e:
-            print(e)
+            #print(e)
             self.buttonReply = QtWidgets.QMessageBox
             self.warning = self.buttonReply.question(self, 'WARNING', str(e),
                                                      QtWidgets.QMessageBox.Ok)
@@ -266,7 +285,7 @@ class Ui(QtWidgets.QWidget):
             self.mycursor.execute(self.query, (str(self.cust_data[7]),self.note,self.uniqueCd, self.user, self.recontact, self.bankChoice))
             self.mycursor.execute("commit;")
         except Exception as e:
-            print(str(e))
+            #print(str(e))
             self.buttonReply = QtWidgets.QMessageBox
             self.warning = self.buttonReply.question(self, 'WARNING', str(e),
                                                      QtWidgets.QMessageBox.Ok)
@@ -288,7 +307,7 @@ class Ui(QtWidgets.QWidget):
 
     def inter(self):
         self.note = "Tertarik"
-        print(self.note)
+        #print(self.note)
         self.prod = self.prd.upper()
         self.cd = self.cust_data[6][:4]+"/"+self.prod+self.cust_data[6][4:]
         try:
@@ -299,13 +318,15 @@ class Ui(QtWidgets.QWidget):
             self.warning = self.buttonReply.question(self, 'WARNING', str(e),
                                                      QtWidgets.QMessageBox.Ok)
         #print(self.uniqueCode.text())
-        print(self.note)
+        #print(self.note)
         self.btn_interest.setEnabled(False)
         self.btn_finterest.setEnabled(False)
         self.btn_abstain.setEnabled(False)
         self.lbl_bank.setVisible(True)
         self.cmb_banks.setVisible(True)
         #self.btn_next.setEnabled(True)
+        self.btn_next.setEnabled(True)
+        self.btn_follup.setEnabled(True)
 
         try:
             self.query = "SELECT nama_bank from bank_"+self.prd+";"
@@ -400,7 +421,7 @@ class Ui(QtWidgets.QWidget):
                 self.mycursor.execute(self.query, (str(self.cust_data[7]),self.note, self.user))
                 self.mycursor.execute("commit;")
             except Exception as e:
-                print(str(e))
+                #print(str(e))
                 self.buttonReply = QtWidgets.QMessageBox
                 self.warning = self.buttonReply.question(self, 'WARNING', str(e),
                                                          QtWidgets.QMessageBox.Ok)

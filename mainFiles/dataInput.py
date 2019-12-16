@@ -10,7 +10,6 @@ class Ui(QtWidgets.QWidget):
     def __init__(self, priv, parentWin, mycursor, user):
         super(Ui, self).__init__()
         uic.loadUi('assets/ui/adminData.ui', self)
-        self.setFixedSize(self.width(), self.height())
         self.show()
 
         self.priv = priv
@@ -20,7 +19,10 @@ class Ui(QtWidgets.QWidget):
         self.user = user
 
         self.rebindUniqueNum()
+        self.initUI()
+        self.setFixedSize(self.width(), self.height())
 
+    def initUI(self):
         self.mycursor.execute("SELECT * FROM add_data;")
         self.result = self.mycursor.fetchall()
         for x in self.result:
@@ -31,14 +33,14 @@ class Ui(QtWidgets.QWidget):
         self.in_phone.setToolTip('<b>No HP</b> harus diisi')
         self.in_source.setToolTip('<b>Asal data</b> harus diisi')
         self.btn_addData.clicked.connect(self.addSingle)
-        if self.priv =='adm':
+        if self.priv == 'adm':
             self.btn_addCol.setVisible(True)
             self.btn_addCol.setEnabled(True)
             self.btn_addCol.clicked.connect(self.alterDB)
         else:
             self.btn_addCol.setVisible(False)
             self.btn_addCol.setEnabled(False)
-        #self.btn_import.clicked.connect(self.importXLS)
+        # self.btn_import.clicked.connect(self.importXLS)
         self.btn_addBank.clicked.connect(self.tambahBank)
         self.btn_update.clicked.connect(self.updateCustomer)
         self.btn_clsWin.clicked.connect(self.clsWin)
@@ -47,7 +49,7 @@ class Ui(QtWidgets.QWidget):
 
     def alterDB(self):
         self.altDB = QtWidgets.QWidget
-        self.altDB.ui = addCol(self.mycursor)
+        self.altDB.ui = addCol(self.mycursor, self)
 
     def rebindUniqueNum(self):
         try:
