@@ -3,6 +3,7 @@ def superData():
     ipadd = dt.readline().rstrip()
     dbcore = dt.readline().rstrip()
     othdb = dt.readline().rstrip()
+    dt.close()
     return ipadd, dbcore, othdb
 
 def admData():
@@ -11,4 +12,5 @@ def admData():
     uname = dt.readline().rstrip()
     psw = dt.readline().rstrip()
     dbcore = dt.readline().rstrip()
+    dt.close()
     return ipadd, uname, psw, dbcore

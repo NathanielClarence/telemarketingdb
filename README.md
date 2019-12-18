@@ -11,3 +11,6 @@ Aplikasi telemarketing yang terhubung dengan database secara realtime.
 # Update 0.5.3:
 - Added history function for admin
 - End of customer data fixes
+
+# Update 0.5.3.1:
+- Added DB access change

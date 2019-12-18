@@ -1,4 +1,5 @@
 from PyQt5 import QtWidgets, uic
+import fetcher
 
 class Ui(QtWidgets.QWidget):
     def __init__(self, user, mycursor, parentWin):
@@ -10,6 +11,9 @@ class Ui(QtWidgets.QWidget):
         self.user = user
         self.mycursor = mycursor
         self.parentWin = parentWin
+        #print(self.dbuser)
+
+        self.dmp1, self.dbuser, self.dmp2, self.dmp3 = fetcher.admData()
 
         self.initUI()
 
@@ -45,8 +49,8 @@ class Ui(QtWidgets.QWidget):
 
         try:
             self.query =  "SELECT user from user where user not like '%mysql%' and user not like 'root' and user not like" \
-                          " %s and host like '\%';"
-            self.mycursor.execute(self.query, (self.user,))
+                          " %s and host like '\%' and user not like %s;"
+            self.mycursor.execute(self.query, (self.user,self.dbuser))
             self.superadmins = self.mycursor.fetchall()
             for x in self.superadmins:
                 self.cmb_superadmin.addItem(x[0])
