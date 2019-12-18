@@ -14,6 +14,7 @@ class Ui(QtWidgets.QWidget):
 
         self.priv = priv
         self.addData = []
+        self.addColumns = []
         self.parentWin = parentWin
         self.mycursor = mycursor
         self.user = user
@@ -27,6 +28,7 @@ class Ui(QtWidgets.QWidget):
         self.result = self.mycursor.fetchall()
         for x in self.result:
             self.addRow(x[0])
+            self.addColumns.append(x[0])
 
         self.lbl_gap.setVisible(False)
         QtWidgets.QToolTip.setFont(QtGui.QFont('Serif', 9))
@@ -90,6 +92,13 @@ class Ui(QtWidgets.QWidget):
                              "asal_data) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s);"
                 self.mycursor.execute(self.query, tuple(self.insData))
                 self.mycursor.execute("commit;")
+
+                if len(self.addColumns)!=0:
+                    self.addtData()
+
+                self.buttonReply = QtWidgets.QMessageBox
+                self.warning = self.buttonReply.question(self, 'Tambah Data', "Data berhasil ditambahkan",
+                                                         QtWidgets.QMessageBox.Ok)
             except Exception as e:
                 self.buttonReply = QtWidgets.QMessageBox
                 self.warning = self.buttonReply.question(self, 'WARNING', str(e),
@@ -103,6 +112,32 @@ class Ui(QtWidgets.QWidget):
                 self.in_earning.setText("")
                 self.in_source.setText("")
                 self.rebindUniqueNum()
+
+    def addtData(self):
+        self.query = "UPDATE customers SET "
+        for x in range(len(self.addColumns)):
+            if x+1 == len(self.addColumns):
+                self.query += self.addColumns[x]+"= %s"
+            else:
+                self.query += self.addColumns[x]+"= %s, "
+        self.query += " WHERE unique_code = %s;"
+        self.ans = []
+        for x in self.addData:
+            if x.text()=="":
+                self.ans.append(None)
+            else:
+                self.ans.append(str(x.text()))
+            x.setText("")
+        self.ans.append(self.insData[0])
+        print(self.ans)
+        print(self.query)
+        try:
+            self.mycursor.execute(self.query, tuple(self.ans))
+            self.mycursor.execute("commit;")
+        except Exception as e:
+            self.buttonReply = QtWidgets.QMessageBox
+            self.warning = self.buttonReply.question(self, 'WARNING', str(e),
+                                                     QtWidgets.QMessageBox.Ok)
 
     def clsWin(self):
         self.parentWin.show()

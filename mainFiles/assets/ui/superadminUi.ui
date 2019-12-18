@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>231</width>
-    <height>201</height>
+    <height>222</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,10 +19,22 @@
      <x>10</x>
      <y>10</y>
      <width>211</width>
-     <height>181</height>
+     <height>201</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QPushButton" name="btn_dbEdit">
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Edit Koneksi ke Database</string>
+      </property>
+     </widget>
+    </item>
     <item>
      <widget class="QPushButton" name="btn_addSuperadmin">
       <property name="font">

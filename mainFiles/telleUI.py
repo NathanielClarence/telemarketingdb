@@ -132,6 +132,12 @@ class Ui(QtWidgets.QWidget):
         self.mycursor.execute(self.query)
         self.cust_data = self.mycursor.fetchone()
 
+        if len(self.cust_data)==0:
+            self.buttonReply = QtWidgets.QMessageBox
+            self.warning = self.buttonReply.question(self, 'Tidak ada data', "Masukkan data baru",
+                                                     QtWidgets.QMessageBox.Ok)
+            self.closeWin()
+
         try:
             self.query = "select data_id, connected, received, explained, note, unique_code, updated from "+self.table+" where " \
                             "cust_id = "+str(self.cust_data[7])+" order by updated;"
@@ -184,7 +190,7 @@ class Ui(QtWidgets.QWidget):
             self.close()
         else:
             self.follupWindow = QtWidgets.QWidget()
-            self.follupWindow.ui = follupPL(self.priv, self.parentWin, self.mycursor, self.user, self.prd,
+            self.follupWindow.ui = follupCC(self.priv, self.parentWin, self.mycursor, self.user, self.prd,
                                             str(self.cust_data[7]))
             self.close()
 
@@ -387,9 +393,12 @@ class Ui(QtWidgets.QWidget):
         self.btn_fpickup.setEnabled(True)
 
     def closeWin(self):
-        self.query = "update customers set fetched = false where id = %s;"
-        self.mycursor.execute(self.query,(str(self.cust_data[7]),))
-        self.mycursor.execute("commit;")
+        try:
+            self.query = "update customers set fetched = false where id = %s;"
+            self.mycursor.execute(self.query,(str(self.cust_data[7]),))
+            self.mycursor.execute("commit;")
+        except Exception as e:
+            print(e)
 
         '''if self.uniqueCode.text() != '':
             self.prodData()

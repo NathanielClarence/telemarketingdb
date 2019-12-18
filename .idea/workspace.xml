@@ -4,16 +4,9 @@
     <list default="true" id="94ac284e-cd15-4a16-93ab-e125fcc9e937" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mainFiles/addColumn.py" beforeDir="false" afterPath="$PROJECT_DIR$/mainFiles/addColumn.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mainFiles/addProduct.py" beforeDir="false" afterPath="$PROJECT_DIR$/mainFiles/addProduct.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mainFiles/addSuperAdmin.py" beforeDir="false" afterPath="$PROJECT_DIR$/mainFiles/addSuperAdmin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mainFiles/addUsers.py" beforeDir="false" afterPath="$PROJECT_DIR$/mainFiles/addUsers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mainFiles/assets/ui/telleUI.ui" beforeDir="false" afterPath="$PROJECT_DIR$/mainFiles/assets/ui/telleUI.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mainFiles/adminUI.py" beforeDir="false" afterPath="$PROJECT_DIR$/mainFiles/adminUI.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mainFiles/assets/ui/superadminUi.ui" beforeDir="false" afterPath="$PROJECT_DIR$/mainFiles/assets/ui/superadminUi.ui" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mainFiles/dataInput.py" beforeDir="false" afterPath="$PROJECT_DIR$/mainFiles/dataInput.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mainFiles/exportData.py" beforeDir="false" afterPath="$PROJECT_DIR$/mainFiles/exportData.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mainFiles/followUp_CC.py" beforeDir="false" afterPath="$PROJECT_DIR$/mainFiles/followUp_CC.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mainFiles/followUp_PL.py" beforeDir="false" afterPath="$PROJECT_DIR$/mainFiles/followUp_PL.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mainFiles/searchResult.py" beforeDir="false" afterPath="$PROJECT_DIR$/mainFiles/searchResult.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mainFiles/telleUI.py" beforeDir="false" afterPath="$PROJECT_DIR$/mainFiles/telleUI.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -196,22 +189,22 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="413" y="130" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.768@0.0.1366.768" timestamp="1575864464938" />
-    <state width="1308" height="170" key="GridCell.Tab.0.bottom" timestamp="1576489446984">
+    <state width="1308" height="170" key="GridCell.Tab.0.bottom" timestamp="1576640424602">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1308" height="170" key="GridCell.Tab.0.bottom/0.0.1366.768@0.0.1366.768" timestamp="1576489446984" />
-    <state width="1308" height="170" key="GridCell.Tab.0.center" timestamp="1576489446983">
+    <state width="1308" height="170" key="GridCell.Tab.0.bottom/0.0.1366.768@0.0.1366.768" timestamp="1576640424602" />
+    <state width="1308" height="170" key="GridCell.Tab.0.center" timestamp="1576640424602">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1308" height="170" key="GridCell.Tab.0.center/0.0.1366.768@0.0.1366.768" timestamp="1576489446983" />
-    <state width="1308" height="170" key="GridCell.Tab.0.left" timestamp="1576489446983">
+    <state width="1308" height="170" key="GridCell.Tab.0.center/0.0.1366.768@0.0.1366.768" timestamp="1576640424602" />
+    <state width="1308" height="170" key="GridCell.Tab.0.left" timestamp="1576640424602">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1308" height="170" key="GridCell.Tab.0.left/0.0.1366.768@0.0.1366.768" timestamp="1576489446983" />
-    <state width="1308" height="170" key="GridCell.Tab.0.right" timestamp="1576489446984">
+    <state width="1308" height="170" key="GridCell.Tab.0.left/0.0.1366.768@0.0.1366.768" timestamp="1576640424602" />
+    <state width="1308" height="170" key="GridCell.Tab.0.right" timestamp="1576640424602">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1308" height="170" key="GridCell.Tab.0.right/0.0.1366.768@0.0.1366.768" timestamp="1576489446984" />
+    <state width="1308" height="170" key="GridCell.Tab.0.right/0.0.1366.768@0.0.1366.768" timestamp="1576640424602" />
     <state width="1308" height="218" key="GridCell.Tab.1.bottom" timestamp="1575885143556">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
@@ -232,10 +225,14 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="184" y="25" key="SettingsEditor/0.0.1366.768@0.0.1366.768" timestamp="1576471115279" />
-    <state x="378" y="206" key="com.intellij.ide.util.TipDialog" timestamp="1576475976074">
+    <state x="378" y="206" key="com.intellij.ide.util.TipDialog" timestamp="1576638084496">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="378" y="206" key="com.intellij.ide.util.TipDialog/0.0.1366.768@0.0.1366.768" timestamp="1576475976074" />
+    <state x="378" y="206" key="com.intellij.ide.util.TipDialog/0.0.1366.768@0.0.1366.768" timestamp="1576638084495" />
+    <state x="336" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1576640624027">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="336" y="89" width="672" height="678" key="search.everywhere.popup/0.0.1366.768@0.0.1366.768" timestamp="1576640624027" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -324,6 +321,21 @@
           <url>file://$PROJECT_DIR$/mainFiles/standardLogin.py</url>
           <line>30</line>
           <option name="timeStamp" value="20" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/mainFiles/telleUI.py</url>
+          <line>124</line>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/mainFiles/telleUI.py</url>
+          <line>131</line>
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/mainFiles/telleUI.py</url>
+          <line>132</line>
+          <option name="timeStamp" value="23" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
