@@ -50,18 +50,19 @@ class Ui(QtWidgets.QWidget):
                     #print("db")
                     self.colAdded.append(self.insertData)
 
-            self.query = "SELECT "
-            for x in range(len(self.addtColumn)):
-                if x+1==len(self.addtColumn):
-                    self.query += self.addtColumn[x][0].lower()+" "
-                else:
-                    self.query += self.addtColumn[x][0].lower() + ", "
-            self.query += "from customers WHERE id = "+str(self.targetID)+";"
-            self.mycursor.execute(self.query)
-            self.dd = self.mycursor.fetchone()
-            for x in range(len(self.colAdded)):
-                print(self.dd[x])
-                self.colAdded[x].setText(self.dd[x])
+            if len(self.addtColumn) != 0:
+                self.query = "SELECT "
+                for x in range(len(self.addtColumn)):
+                    if x+1==len(self.addtColumn):
+                        self.query += self.addtColumn[x][0].lower()+" "
+                    else:
+                        self.query += self.addtColumn[x][0].lower() + ", "
+                self.query += "from customers WHERE id = "+str(self.targetID)+";"
+                self.mycursor.execute(self.query)
+                self.dd = self.mycursor.fetchone()
+                for x in range(len(self.colAdded)):
+                    print(self.dd[x])
+                    self.colAdded[x].setText(self.dd[x])
         except Exception as e:
             self.buttonReply = QtWidgets.QMessageBox
             self.warning = self.buttonReply.question(self, 'WARNING', str(e), QtWidgets.QMessageBox.Ok)
