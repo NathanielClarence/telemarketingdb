@@ -14,3 +14,11 @@ def admData():
     dbcore = dt.readline().rstrip()
     dt.close()
     return ipadd, uname, psw, dbcore
+
+def technical():
+    dt = open("assets/technical.dct.dct", 'r')
+    uname = dt.readline().rstrip()
+    pasw = dt.readline().rstrip()
+
+    dt.close()
+    return uname, pasw
