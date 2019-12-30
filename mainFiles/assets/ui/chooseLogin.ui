@@ -6,37 +6,25 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>211</width>
-    <height>234</height>
+    <width>382</width>
+    <height>261</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QWidget" name="verticalLayoutWidget">
+   <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>20</x>
+      <x>10</x>
       <y>10</y>
-      <width>171</width>
-      <height>201</height>
+      <width>361</width>
+      <height>221</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QPushButton" name="btn_dbEdit">
-       <property name="font">
-        <font>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Edit Koneksi ke Database</string>
-       </property>
-      </widget>
-     </item>
-     <item>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="1" column="0">
       <widget class="QPushButton" name="sa_Login">
        <property name="font">
         <font>
@@ -48,7 +36,7 @@
        </property>
       </widget>
      </item>
-     <item>
+     <item row="1" column="1">
       <widget class="QPushButton" name="adm_Login">
        <property name="font">
         <font>
@@ -60,11 +48,17 @@
        </property>
       </widget>
      </item>
-     <item>
+     <item row="0" column="0" colspan="3">
       <widget class="QPushButton" name="tel_Login">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="font">
         <font>
-         <pointsize>10</pointsize>
+         <pointsize>20</pointsize>
         </font>
        </property>
        <property name="text">
@@ -72,8 +66,26 @@
        </property>
       </widget>
      </item>
-     <item>
+     <item row="2" column="0">
+      <widget class="QPushButton" name="btn_dbEdit">
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Settings</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1" colspan="2">
       <widget class="QPushButton" name="exit">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="font">
         <font>
          <pointsize>10</pointsize>

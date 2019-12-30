@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="94ac284e-cd15-4a16-93ab-e125fcc9e937" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mainFiles/addBank.py" beforeDir="false" afterPath="$PROJECT_DIR$/mainFiles/addBank.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mainFiles/addColumn.py" beforeDir="false" afterPath="$PROJECT_DIR$/mainFiles/addColumn.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mainFiles/assets/ui/adminData.ui" beforeDir="false" afterPath="$PROJECT_DIR$/mainFiles/assets/ui/adminData.ui" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mainFiles/assets/ui/superadminUi.ui" beforeDir="false" afterPath="$PROJECT_DIR$/mainFiles/assets/ui/superadminUi.ui" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mainFiles/dataInput.py" beforeDir="false" afterPath="$PROJECT_DIR$/mainFiles/dataInput.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mainFiles/superadminUI.py" beforeDir="false" afterPath="$PROJECT_DIR$/mainFiles/superadminUI.py" afterDir="false" />
-    </list>
+    <list default="true" id="94ac284e-cd15-4a16-93ab-e125fcc9e937" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
