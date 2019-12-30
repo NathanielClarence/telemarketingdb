@@ -1,5 +1,6 @@
 from PyQt5 import QtWidgets, uic
 import re
+import fetcher
 
 class Ui(QtWidgets.QWidget):
     def __init__(self, mycursor, parentWin):
@@ -10,6 +11,11 @@ class Ui(QtWidgets.QWidget):
 
         self.mycursor = mycursor
         self.parentWin = parentWin
+        self.dropip = None
+        self.dropdb = None
+        self.usedb = None
+
+        self.dropip, self.dropdb, self.usedb = fetcher.superData()
 
         self.initUI()
 
@@ -22,7 +28,7 @@ class Ui(QtWidgets.QWidget):
 
     def initUI(self):
         try:
-            self.query = "SELECT col FROM add_data;"
+            self.query = "SELECT col FROM "+self.usedb+".add_data;"
             self.mycursor.execute(self.query)
             self.res = self.mycursor.fetchall()
 
@@ -41,9 +47,9 @@ class Ui(QtWidgets.QWidget):
                                                      self.qm.Yes|self.qm.No)
         if self.confirm == self.qm.Yes:
             try:
-                self.query = "DELETE FROM add_data where col = %s;"
+                self.query = "DELETE FROM "+self.usedb+".add_data where col = %s;"
                 self.mycursor.execute(self.query,(self.selectedCol,))
-                self.query = "ALTER TABLE customers drop column "+self.selectedCol+";"
+                self.query = "ALTER TABLE "+self.usedb+".customers drop column "+self.selectedCol+";"
                 self.mycursor.execute(self.query)
                 self.mycursor.execute("commit;")
                 self.close()
@@ -63,9 +69,9 @@ class Ui(QtWidgets.QWidget):
             self.newCol = str(self.in_newCol.text())
             self.newCol = re.sub('[^A-Za-z0-9]+', '_', self.newCol)
             try:
-                self.query = "INSERT INTO ADD_DATA (COL) VALUES (%s);"
+                self.query = "INSERT INTO "+self.usedb+".ADD_DATA (COL) VALUES (%s);"
                 self.mycursor.execute(self.query, (self.newCol,))
-                self.query = "ALTER TABLE CUSTOMERS ADD "+self.newCol+" varchar(100);"
+                self.query = "ALTER TABLE "+self.usedb+".CUSTOMERS ADD "+self.newCol+" varchar(100);"
                 self.mycursor.execute(self.query)
                 self.mycursor.execute("commit;")
                 self.buttonReply = QtWidgets.QMessageBox

@@ -1,4 +1,5 @@
 from PyQt5 import QtWidgets, uic, QtGui
+import fetcher
 
 class Ui(QtWidgets.QWidget):
     def __init__(self, mycursor):
@@ -8,6 +9,11 @@ class Ui(QtWidgets.QWidget):
         self.show()
 
         self.mycursor = mycursor
+        self.dropip = None
+        self.dropdb = None
+        self.usedb = None
+
+        self.dropip, self.dropdb, self.usedb = fetcher.superData()
 
         self.initUI()
 
@@ -19,7 +25,7 @@ class Ui(QtWidgets.QWidget):
 
     def initUI(self):
         try:
-            self.query = "SELECT KODE_PRODUK FROM PRODUCTS;"
+            self.query = "SELECT KODE_PRODUK FROM "+self.usedb+".PRODUCTS;"
             self.mycursor.execute(self.query)
             self.res = self.mycursor.fetchall()
 
@@ -37,7 +43,7 @@ class Ui(QtWidgets.QWidget):
 
     def refreshBank(self):
         try:
-            self.query = "SELECT nama_bank from bank_"+self.cmb_prdList.currentText().lower()+";"
+            self.query = "SELECT nama_bank from "+self.usedb+".bank_"+self.cmb_prdList.currentText().lower()+";"
             self.mycursor.execute(self.query)
             self.res = self.mycursor.fetchall()
             #print(self.res)
@@ -60,7 +66,7 @@ class Ui(QtWidgets.QWidget):
 
         if self.confirm == self.qm.Yes:
             try:
-                self.query = "Delete from bank_"+self.cmb_prdList.currentText()+" where nama_bank = %s;"
+                self.query = "Delete from "+self.usedb+".bank_"+self.cmb_prdList.currentText()+" where nama_bank = %s;"
                 self.bank = self.cmb_removeBank.currentText()
                 self.mycursor.execute(self.query,(self.bank,))
                 self.mycursor.execute("commit;")
@@ -82,7 +88,7 @@ class Ui(QtWidgets.QWidget):
             if self.namabank == '':
                 raise Exception("Nama bank harus diisi")
 
-            self.query = "INSERT INTO bank_"+self.produk+" (nama_bank) values (%s);"
+            self.query = "INSERT INTO "+self.usedb+".bank_"+self.produk+" (nama_bank) values (%s);"
             self.mycursor.execute(self.query, (self.namabank,))
             self.mycursor.execute("commit;")
             self.buttonReply = QtWidgets.QMessageBox

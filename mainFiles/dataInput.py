@@ -35,23 +35,23 @@ class Ui(QtWidgets.QWidget):
         self.in_phone.setToolTip('<b>No HP</b> harus diisi')
         self.in_source.setToolTip('<b>Asal data</b> harus diisi')
         self.btn_addData.clicked.connect(self.addSingle)
-        if self.priv == 'adm':
+        '''if self.priv == 'adm':
             self.btn_addCol.setVisible(True)
             self.btn_addCol.setEnabled(True)
             self.btn_addCol.clicked.connect(self.alterDB)
         else:
             self.btn_addCol.setVisible(False)
-            self.btn_addCol.setEnabled(False)
+            self.btn_addCol.setEnabled(False)'''
         # self.btn_import.clicked.connect(self.importXLS)
-        self.btn_addBank.clicked.connect(self.tambahBank)
+        #self.btn_addBank.clicked.connect(self.tambahBank)
         self.btn_update.clicked.connect(self.updateCustomer)
         self.btn_clsWin.clicked.connect(self.clsWin)
         self.in_dob.setMaximumDateTime(datetime.datetime.now())
         self.btn_import.clicked.connect(self.importDB)
 
-    def alterDB(self):
+    '''def alterDB(self):
         self.altDB = QtWidgets.QWidget
-        self.altDB.ui = addCol(self.mycursor, self)
+        self.altDB.ui = addCol(self.mycursor, self)'''
 
     def rebindUniqueNum(self):
         try:
@@ -153,9 +153,9 @@ class Ui(QtWidgets.QWidget):
         self.searchWin.ui = searchCust(self.priv, self, self.mycursor, self.user)
         self.hide()
 
-    def tambahBank(self):
+    '''def tambahBank(self):
         self.addBank = QtWidgets.QWidget()
-        self.addBank.ui = addBnk(self.mycursor)
+        self.addBank.ui = addBnk(self.mycursor)'''
 
     def importDB(self):
         options = QtWidgets.QFileDialog.Options()

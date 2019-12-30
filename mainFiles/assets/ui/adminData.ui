@@ -23,45 +23,6 @@
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout_2">
-    <item row="5" column="0">
-     <widget class="QPushButton" name="btn_update">
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Update Data</string>
-      </property>
-     </widget>
-    </item>
-    <item row="8" column="0">
-     <widget class="QPushButton" name="btn_clsWin">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Close</string>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="0">
-     <widget class="QPushButton" name="btn_import">
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Import Data</string>
-      </property>
-     </widget>
-    </item>
     <item row="3" column="0">
      <widget class="QLabel" name="lbl_gap">
       <property name="enabled">
@@ -77,6 +38,33 @@
       </property>
      </widget>
     </item>
+    <item row="5" column="0">
+     <widget class="QPushButton" name="btn_update">
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Update Data</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="0">
+     <widget class="QPushButton" name="btn_clsWin">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Close</string>
+      </property>
+     </widget>
+    </item>
     <item row="2" column="1">
      <widget class="QPushButton" name="btn_addData">
       <property name="font">
@@ -86,18 +74,6 @@
       </property>
       <property name="text">
        <string>Tambah Data</string>
-      </property>
-     </widget>
-    </item>
-    <item row="6" column="0">
-     <widget class="QPushButton" name="btn_addCol">
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Tambah/Kurangi Kolom</string>
       </property>
      </widget>
     </item>
@@ -306,15 +282,15 @@
       </item>
      </layout>
     </item>
-    <item row="7" column="0">
-     <widget class="QPushButton" name="btn_addBank">
+    <item row="4" column="0">
+     <widget class="QPushButton" name="btn_import">
       <property name="font">
        <font>
         <pointsize>10</pointsize>
        </font>
       </property>
       <property name="text">
-       <string>Tambah Bank</string>
+       <string>Import Data</string>
       </property>
      </widget>
     </item>
