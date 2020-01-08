@@ -2,6 +2,7 @@ from PyQt5 import QtWidgets, uic
 from dataInput import Ui as admPage
 from exportData import Ui as exportDat
 from historySearchAdmin import Ui as history
+from assignCustomer import Ui as assCustomer
 #import sys
 
 class Ui(QtWidgets.QWidget):
@@ -24,6 +25,12 @@ class Ui(QtWidgets.QWidget):
         self.btn_exportDB.clicked.connect(self.exportDb)
         self.btn_exportUser.clicked.connect(self.exportTelle)
         self.btn_history.clicked.connect(self.seeHistory)
+        self.btn_assign.clicked.connect(self.assign)
+
+    def assign(self):
+        self.assignWin = QtWidgets.QWidget()
+        self.assignWin.ui = assCustomer(self.priv, self, self.mycursor, self.user)
+        self.hide()
 
     def exportTelle(self):
         self.exportWin = QtWidgets.QWidget()

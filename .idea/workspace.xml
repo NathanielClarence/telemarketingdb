@@ -3,6 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="94ac284e-cd15-4a16-93ab-e125fcc9e937" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mainFiles/adminUI.py" beforeDir="false" afterPath="$PROJECT_DIR$/mainFiles/adminUI.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mainFiles/assets/ui/adminUi.ui" beforeDir="false" afterPath="$PROJECT_DIR$/mainFiles/assets/ui/adminUi.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mainFiles/assets/ui/assignCustomer.ui" beforeDir="false" afterPath="$PROJECT_DIR$/mainFiles/assets/ui/assignCustomer.ui" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mainFiles/assignCustomer.py" beforeDir="false" afterPath="$PROJECT_DIR$/mainFiles/assignCustomer.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -40,7 +43,7 @@
       <recent name="C:\Users\Clarence\PycharmProjects\Database\mainFiles" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.assignCustomer">
+  <component name="RunManager" selected="Python.main (1)">
     <configuration name="assignCustomer" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Database" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -148,8 +151,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.assignCustomer" />
         <item itemvalue="Python.main (1)" />
+        <item itemvalue="Python.assignCustomer" />
         <item itemvalue="Python.testings" />
         <item itemvalue="Python.dataInput" />
         <item itemvalue="Python.fetcher" />

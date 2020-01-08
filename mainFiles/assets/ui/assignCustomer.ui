@@ -225,6 +225,18 @@
       </property>
      </widget>
     </item>
+    <item row="3" column="0">
+     <widget class="QPushButton" name="btn_back">
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Kembali</string>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
  </widget>

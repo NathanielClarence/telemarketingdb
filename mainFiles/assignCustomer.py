@@ -1,19 +1,19 @@
 from PyQt5 import QtWidgets, uic
-import mysql.connector as conn
-import sys
+'''import mysql.connector as conn
+import sys'''
 
 class Ui(QtWidgets.QWidget):
-    def __init__(self):#, priv, parentWin, mycursor, user):
+    def __init__(self, priv, parentWin, mycursor, user):
         super(Ui, self).__init__()
         uic.loadUi('assets/ui/assignCustomer.ui', self)
         self.show()
 
-        '''self.priv = priv
-        self.addData = []
-        self.addColumns = []
+        self.priv = priv
+        #self.addData = []
+        #self.addColumns = []
         self.parentWin = parentWin
         self.mycursor = mycursor
-        self.user = user'''
+        self.user = user
 
         try:
             self.initUI()
@@ -22,7 +22,7 @@ class Ui(QtWidgets.QWidget):
         self.setFixedSize(self.width(), self.height())
 
     def initUI(self):
-        self.mydb = conn.connect(
+        '''self.mydb = conn.connect(
             host="localhost",
             user='root',
             passwd='root',
@@ -30,8 +30,7 @@ class Ui(QtWidgets.QWidget):
             auth_plugin='mysql_native_password',
             buffered=True
         )
-        self.mycursor = self.mydb.cursor()
-
+        self.mycursor = self.mydb.cursor()'''
 
         self.query = "select kode_produk from products;"
         self.mycursor.execute(self.query)
@@ -72,6 +71,11 @@ class Ui(QtWidgets.QWidget):
         self.lbl_totalData.setText(str(len(self.result)))
         self.btn_partAssign.clicked.connect(self.partialAssign)
         self.btn_assign.clicked.connect(self.assignTo)
+        self.btn_back.clicked.connect(self.closeWin)
+
+    def closeWin(self):
+        self.parentWin.show()
+        self.close()
 
     def assignTo(self):
         self.selected = []
@@ -140,9 +144,9 @@ class Ui(QtWidgets.QWidget):
         self.lbl_totalData.setText(str(len(self.result)))
         #print(str(self.checkboxList))
 
-if __name__ == "__main__":
+'''if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
 
     premain = QtWidgets.QWidget()
     premain.ui = Ui()
-    sys.exit(app.exec_())
+    sys.exit(app.exec_())'''
