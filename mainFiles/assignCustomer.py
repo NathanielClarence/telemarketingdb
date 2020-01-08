@@ -1,4 +1,5 @@
 from PyQt5 import QtWidgets, uic
+from reassignCustomer import Ui as reassign
 '''import mysql.connector as conn
 import sys'''
 
@@ -72,6 +73,12 @@ class Ui(QtWidgets.QWidget):
         self.btn_partAssign.clicked.connect(self.partialAssign)
         self.btn_assign.clicked.connect(self.assignTo)
         self.btn_back.clicked.connect(self.closeWin)
+        self.btn_reassign.clicked.connect(self.reassignCustomers)
+
+    def reassignCustomers(self):
+        self.assignUlang = QtWidgets.QWidget()
+        self.assignUlang.ui = reassign(self.priv, self.mycursor, self.user, self.cmb_product.currentText(),
+                                       self.telle_name.text(), self.cmb_telle.currentText())
 
     def closeWin(self):
         self.parentWin.show()
