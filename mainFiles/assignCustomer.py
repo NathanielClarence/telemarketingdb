@@ -32,6 +32,7 @@ class Ui(QtWidgets.QWidget):
         )
         self.mycursor = self.mydb.cursor()
 
+
         self.query = "select kode_produk from products;"
         self.mycursor.execute(self.query)
         self.result = self.mycursor.fetchall()
