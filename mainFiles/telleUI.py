@@ -165,7 +165,7 @@ class Ui(QtWidgets.QWidget):
             self.warning = self.buttonReply.question(self, 'WARNING', "Belum ada data",
                                                      QtWidgets.QMessageBox.Ok)
 
-        try:
+        '''try:
             self.query = "update customers set fetched = true where id = " + str(self.cust_data[7]) + ";"
             #print(self.query)
             self.mycursor.execute(self.query)
@@ -173,7 +173,7 @@ class Ui(QtWidgets.QWidget):
         except Exception as e:
             self.buttonReply = QtWidgets.QMessageBox
             self.warning = self.buttonReply.question(self, 'WARNING', str(e),
-                                                     QtWidgets.QMessageBox.Ok)
+                                                     QtWidgets.QMessageBox.Ok)'''
 
         self.in_name.setText(self.cust_data[0])
         self.in_phone.setText(self.cust_data[1])
@@ -394,12 +394,12 @@ class Ui(QtWidgets.QWidget):
         self.btn_fpickup.setEnabled(True)
 
     def closeWin(self):
-        try:
+        '''try:
             self.query = "update customers set fetched = false where id = %s;"
             self.mycursor.execute(self.query,(str(self.cust_data[7]),))
             self.mycursor.execute("commit;")
         except Exception as e:
-            print(e)
+            print(e)'''
 
         '''if self.uniqueCode.text() != '':
             self.prodData()
@@ -417,9 +417,9 @@ class Ui(QtWidgets.QWidget):
         self.close()
 
     def next(self):
-        self.query = "update customers set fetched = false where id = %s;"
+        '''self.query = "update customers set fetched = false where id = %s;"
         self.mycursor.execute(self.query, (str(self.cust_data[7]),))
-        self.mycursor.execute("commit;")
+        self.mycursor.execute("commit;")'''
         self.uniqueCd = self.uniqueCode.text()
         if self.uniqueCode.text() != '':
             self.prodData()
