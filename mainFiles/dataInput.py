@@ -1,9 +1,10 @@
-from PyQt5 import QtWidgets, uic, QtGui
+from PyQt5 import QtWidgets, uic, QtGui, QtCore
 from searchUser import Ui as searchCust
-from addBank import Ui as addBnk
-from addColumn import Ui as addCol
+#from addBank import Ui as addBnk
+#from addColumn import Ui as addCol
 import datetime
 import pandas as pd
+import re
 import sys
 
 class Ui(QtWidgets.QWidget):
@@ -65,29 +66,46 @@ class Ui(QtWidgets.QWidget):
             self.warning = self.buttonReply.question(self, 'WARNING', str(e),
                                                      QtWidgets.QMessageBox.Ok)
 
+    '''def addSingle(self):
+        self.phone = str(self.in_phone.text())
+        self.phone = re.sub('[^0-9]+', '',re.sub("\+62", '0', self.phone))
+        print(self.phone)
+        if self.phone.isnumeric():
+            print("True")
+        else:
+            print("Try Again")'''
+        #print(self.phone)
+
     def addSingle(self):
-        if self.in_phone.text() == '' or self.in_source == '':
+        self.phone = str(self.in_phone.text())
+        self.phone = re.sub('[^0-9]+', '', re.sub("\+62", '0', self.phone))
+        if self.phone == '' or self.in_source == '':
             self.buttonReply = QtWidgets.QMessageBox
             self.warning = self.buttonReply.question(self, 'WARNING', 'Phone number and source cannot be empty', QtWidgets.QMessageBox.Ok)
         else:
-            self.insData = []
-            self.insData.append(str(self.unicode))
-            self.insData.append(str(self.in_name.text()))
-            self.insData.append(str(self.in_phone.text()))
-            self.insData.append(str(self.in_id.text()))
-            self.insData.append(self.in_dob.dateTime().toString('yyyy-MM-dd'))
-            self.insData.append(str(self.in_address.toPlainText()))
-            self.insData.append(str(self.in_cc.text()))
-            self.insData.append(str(self.in_earning.text()))
-            self.insData.append(str(self.in_source.text()))
-
-            for x in range(len(self.insData)):
-                if self.insData[x]=='':
-                    self.insData[x]=None
-
-            #print(self.insData)
-
             try:
+                if not self.phone.isnumeric():
+                    raise Exception("Invalid phone number "+self.in_phone.text())
+                    '''print("True")
+                else:
+                    print("Try Again")'''
+
+                self.insData = []
+                self.insData.append(str(self.unicode))
+                self.insData.append(str(self.in_name.text()))
+                self.insData.append(self.phone)
+                self.insData.append(str(self.in_id.text()))
+                self.insData.append(self.in_dob.dateTime().toString('yyyy-MM-dd'))
+                self.insData.append(str(self.in_address.toPlainText()))
+                self.insData.append(str(self.in_cc.text()))
+                self.insData.append(str(self.in_earning.text()))
+                self.insData.append(str(self.in_source.text()))
+
+                for x in range(len(self.insData)):
+                    if self.insData[x]=='':
+                        self.insData[x]=None
+
+                #print(self.insData)
                 self.query = "INSERT INTO CUSTOMERS (unique_code, nama, telp, no_ktp, date_of_birth, alamat, cc, penghasilan, " \
                              "asal_data) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s);"
                 self.mycursor.execute(self.query, tuple(self.insData))
@@ -107,6 +125,7 @@ class Ui(QtWidgets.QWidget):
                 self.in_name.setText("")
                 self.in_phone.setText("")
                 self.in_id.setText("")
+                self.in_dob.setDate(QtCore.QDate(2000, 1, 1))
                 self.in_address.setText("")
                 self.in_cc.setText("")
                 self.in_earning.setText("")
@@ -129,8 +148,9 @@ class Ui(QtWidgets.QWidget):
                 self.ans.append(str(x.text()))
             x.setText("")
         self.ans.append(self.insData[0])
-        print(self.ans)
+        '''print(self.ans)
         print(self.query)
+        print(str(tuple(self.ans)))'''
         try:
             self.mycursor.execute(self.query, tuple(self.ans))
             self.mycursor.execute("commit;")

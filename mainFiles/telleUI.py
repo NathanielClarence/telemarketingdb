@@ -1,4 +1,4 @@
-from PyQt5 import uic, QtWidgets
+from PyQt5 import uic, QtWidgets, QtCore
 from searchHistory import Ui as srcHistory
 from datetime import datetime
 from followUp_PL import Ui as follupPL
@@ -192,6 +192,18 @@ class Ui(QtWidgets.QWidget):
         self.in_income.setText(self.cust_data[5])
         self.in_source.setText(self.cust_data[3])
         self.in_dob.setDate(self.cust_data[9])
+
+        # terakhir dikontak oleh telle (bisa telle yang sama atau yang berbeda)
+        self.lastDate()
+
+    def lastDate(self):
+        self.query = "SELECT updated from "+self.table+" where cust_id = "+str(self.cust_data[7])+" order by updated desc;"
+        self.mycursor.execute(self.query)
+        self.lastUpdate = self.mycursor.fetchall()
+        if len(self.lastUpdate) != 0:
+            self.dt_lastContact.setDate(self.lastUpdate[0][0])
+        else:
+            self.dt_lastContact.setDate(QtCore.QDate.currentDate())
 
     def followUp(self):
         if self.prd.lower() == 'pl':
