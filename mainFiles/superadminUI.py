@@ -4,6 +4,7 @@ from addUsers import Ui as addAdmins
 from addProduct import Ui as addPrdc
 from addBank import Ui as addBnk
 from addColumn import Ui as addCol
+import fetcher
 
 class Ui(QtWidgets.QWidget):
     def __init__(self, user, mycursor, parentWin):
@@ -15,14 +16,14 @@ class Ui(QtWidgets.QWidget):
         self.user = user
         self.mycursor = mycursor
         self.parentWin = parentWin
-        self.ttlData = ""
-        self.thisMon = ""
+        self.dropip, self.dbcore, self.targetDB = fetcher.superData()
 
         self.initUI()
 
     def initUI(self):
         self.totalData()
         self.thisMonth()
+        self.contactedToday()
 
         self.btn_addSuperadmin.clicked.connect(self.btnAddSA)
         self.btn_back.clicked.connect(self.logout)
@@ -35,9 +36,10 @@ class Ui(QtWidgets.QWidget):
     def refreshData(self):
         self.totalData()
         self.thisMonth()
+        self.contactedToday()
 
     def totalData(self):
-        self.query = "SELECT count(id) from dbtest.customers;"
+        self.query = "SELECT count(id) from "+self.targetDB+".customers;"
         self.mycursor.execute(self.query)
         self.result = self.mycursor.fetchone()
         self.ttlData = str(self.result[0])
@@ -45,12 +47,24 @@ class Ui(QtWidgets.QWidget):
         self.lbl_data.setText(self.ttlData)
 
     def thisMonth(self):
-        self.query = "SELECT count(id) from dbtest.customers where date_added > date_sub(now(), interval 1 month);"
+        self.query = "SELECT count(id) from "+self.targetDB+".customers where date_added > date_sub(now(), interval 1 month);"
         self.mycursor.execute(self.query)
         self.result = self.mycursor.fetchone()
         self.thisMon = str(self.result[0])
         #print(self.thisMon)
         self.lbl_thisMonth.setText(self.thisMon)
+
+    def contactedToday(self):
+        self.today = 0
+        self.query = "select kode_produk from "+self.targetDB+".products;"
+        self.mycursor.execute(self.query)
+        self.prodResult = self.mycursor.fetchall()
+        for x in self.prodResult:
+            self.query = "SELECT count(data_id) from "+self.targetDB+".prod_"+x[0]+" where updated = curdate();"
+            self.mycursor.execute(self.query)
+            self.result = self.mycursor.fetchone()
+            self.today += self.result[0]
+        self.lbl_contacted.setText(str(self.today))
 
     def alterDB(self):
         self.altDB = QtWidgets.QWidget
