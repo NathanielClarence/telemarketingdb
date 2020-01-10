@@ -443,10 +443,6 @@ class Ui(QtWidgets.QWidget):
             self.prodData()
         else:
             try:
-                for x in self.cust_data:
-                    if x is None:
-                        x = ""
-
                 self.query = "insert into "+self.table+" (cust_id, connected, received, explained, note, updated, updater) values" \
                                                         "(%s,"+str(self.connected)+","+str(self.received)+","+str(self.explained)+"" \
                                                         ",%s, curdate(), %s);"
