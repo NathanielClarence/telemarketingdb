@@ -446,7 +446,7 @@ class Ui(QtWidgets.QWidget):
                 self.query = "insert into "+self.table+" (cust_id, connected, received, explained, note, updated, updater) values" \
                                                         "(%s,"+str(self.connected)+","+str(self.received)+","+str(self.explained)+"" \
                                                         ",%s, curdate(), %s);"
-                # print(self.query, (str(self.cust_data[7]),self.note, self.user))
+                self.query, (str(self.cust_data[7]),self.note, self.user)
                 self.mycursor.execute(self.query, (str(self.cust_data[7]),self.note, self.user))
 
                 self.mycursor.execute("commit;")

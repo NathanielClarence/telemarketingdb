@@ -49,6 +49,16 @@ class Ui(QtWidgets.QWidget):
         self.in_dob.setMaximumDateTime(datetime.datetime.now())
         self.btn_import.clicked.connect(self.importDB)
 
+        try:
+            self.query = "SELECT kode_produk FROM products"
+            self.mycursor.execute(self.query)
+            #self.mycursor.execute("commit;")
+
+            self.product_code = self.mycursor.fetchall()
+            self.getBankData()
+        except Exception as e:
+            print(e)
+
     '''def alterDB(self):
         self.altDB = QtWidgets.QWidget
         self.altDB.ui = addCol(self.mycursor, self)'''
@@ -203,6 +213,24 @@ class Ui(QtWidgets.QWidget):
                 self.buttonReply = QtWidgets.QMessageBox
                 self.warning = self.buttonReply.question(self, 'WARNING', str(e),
                                                          QtWidgets.QMessageBox.Ok)
+
+    def getBankData(self):
+        self.banks=[]
+        for x in self.product_code:
+            self.query = "SELECT nama_bank FROM bank_" + x[0]
+            self.mycursor.execute(self.query)
+            self.bank_prod = self.mycursor.fetchall()
+            #print(self.bank)
+            for y in self.bank_prod:
+                self.banks.append(y[0])
+        self.banks = tuple(self.banks)
+        print(self.banks)
+
+        try:
+            for x in self.banks:
+                self.cmb_asaldata.addItem(x)
+        except Exception as e:
+            print(e)
 
     '''def importXLS(self):
         print("import xls, all rows (depends on how many cols customers table need)")
