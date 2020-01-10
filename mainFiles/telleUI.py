@@ -17,6 +17,7 @@ class Ui(QtWidgets.QWidget):
         self.user = user
         self.prd = product
         self.table = "prod_"+product
+        self.assign = "assign_"+product
         self.targetID = target
         self.recontact = recontact
 
@@ -64,9 +65,11 @@ class Ui(QtWidgets.QWidget):
                     print(self.dd[x])
                     self.colAdded[x].setText(self.dd[x])
         except Exception as e:
+            pass
+            '''print("Masuk exc")
             self.buttonReply = QtWidgets.QMessageBox
             self.warning = self.buttonReply.question(self, 'WARNING', str(e), QtWidgets.QMessageBox.Ok)
-
+'''
     def initUi(self):
         self.btn_pickup.setVisible(False)
         self.btn_fpickup.setVisible(False)
@@ -124,7 +127,7 @@ class Ui(QtWidgets.QWidget):
         else:
             self.btn_save.setEnabled(False)
             self.query = "select nama, telp, alamat, asal_data, no_ktp, penghasilan, cst.unique_code, id, cc, date_of_birth from " \
-                         "(select * from customers where fetched = false" \
+                         "(select * from customers where id in (select cust_id from "+self.assign+" where assigned_telle = '"+ self.user +"' AND times_assigned < 4) " \
                          ") as cst left join "+self.table+ \
                          " on id = cust_id where connected = true and note not like 'Tertarik' and cust_id not in " \
                          "(select cust_id from "+self.table+" where updated between" \
@@ -133,7 +136,8 @@ class Ui(QtWidgets.QWidget):
         self.mycursor.execute(self.query)
         self.cust_data = self.mycursor.fetchone()
 
-        if len(self.cust_data)==0:
+        if not self.cust_data:
+            # print("Masuk Cust_data empty")
             self.buttonReply = QtWidgets.QMessageBox
             self.warning = self.buttonReply.question(self, 'Tidak ada data', "Masukkan data baru",
                                                      QtWidgets.QMessageBox.Ok)
@@ -160,7 +164,7 @@ class Ui(QtWidgets.QWidget):
                 self.note = None
                 self.recontact = None
         except Exception as e:
-            #print(e)
+            # print("gg")
             self.buttonReply = QtWidgets.QMessageBox
             self.warning = self.buttonReply.question(self, 'WARNING', "Belum ada data",
                                                      QtWidgets.QMessageBox.Ok)
@@ -174,6 +178,11 @@ class Ui(QtWidgets.QWidget):
             self.buttonReply = QtWidgets.QMessageBox
             self.warning = self.buttonReply.question(self, 'WARNING', str(e),
                                                      QtWidgets.QMessageBox.Ok)'''
+
+        # kalau ada null di db, ganti jadi ""
+        for x in self.cust_data:
+            if x is None:
+                x = ""
 
         self.in_name.setText(self.cust_data[0])
         self.in_phone.setText(self.cust_data[1])
@@ -206,7 +215,7 @@ class Ui(QtWidgets.QWidget):
             self.follow.ui = srcHistory(self.priv, self, self.mycursor, self.result, self.user,
                                     self.prd)
         except Exception as e:
-            #print(e)
+            print("kk")
             self.buttonReply = QtWidgets.QMessageBox
             self.warning = self.buttonReply.question(self, 'WARNING', str(e),
                                                      QtWidgets.QMessageBox.Ok)
@@ -237,6 +246,7 @@ class Ui(QtWidgets.QWidget):
                 self.mycursor.execute(self.query, self.inse)
                 self.mycursor.execute("commit;")
             except Exception as e:
+
                 self.buttonReply = QtWidgets.QMessageBox
                 self.warning = self.buttonReply.question(self, 'WARNING', str(e),
                                                          QtWidgets.QMessageBox.Ok)
@@ -246,6 +256,7 @@ class Ui(QtWidgets.QWidget):
 
             self.btn_save.setEnabled(False)
         else:
+
             self.buttonReply = QtWidgets.QMessageBox
             self.warning = self.buttonReply.question(self, 'WARNING', 'Phone number and source cannot be empty',
                                                      QtWidgets.QMessageBox.Ok)
@@ -293,6 +304,7 @@ class Ui(QtWidgets.QWidget):
             self.mycursor.execute("commit;")
         except Exception as e:
             #print(str(e))
+            print("ll")
             self.buttonReply = QtWidgets.QMessageBox
             self.warning = self.buttonReply.question(self, 'WARNING', str(e),
                                                      QtWidgets.QMessageBox.Ok)
@@ -348,6 +360,7 @@ class Ui(QtWidgets.QWidget):
 
     def finf(self):
         self.explained = False
+        self.note="Tidak"
         self.btn_info.setEnabled(False)
         self.btn_finfo.setEnabled(False)
         self.btn_next.setEnabled(True)
@@ -365,6 +378,8 @@ class Ui(QtWidgets.QWidget):
 
     def fpick(self):
         self.received = False
+        self.explained = False
+        self.note = "Tidak"
         self.btn_pickup.setEnabled(False)
         self.btn_fpickup.setEnabled(False)
         self.btn_next.setEnabled(True)
@@ -380,6 +395,9 @@ class Ui(QtWidgets.QWidget):
 
     def fcnt(self):
         self.connected=False
+        self.received=False
+        self.explained=False
+        self.note="Tidak"
         self.btn_fconnect.setEnabled(False)
         self.btn_connect.setEnabled(False)
         self.btn_next.setEnabled(True)
@@ -425,12 +443,19 @@ class Ui(QtWidgets.QWidget):
             self.prodData()
         else:
             try:
+                for x in self.cust_data:
+                    if x is None:
+                        x = ""
+
                 self.query = "insert into "+self.table+" (cust_id, connected, received, explained, note, updated, updater) values" \
                                                         "(%s,"+str(self.connected)+","+str(self.received)+","+str(self.explained)+"" \
                                                         ",%s, curdate(), %s);"
+                # print(self.query, (str(self.cust_data[7]),self.note, self.user))
                 self.mycursor.execute(self.query, (str(self.cust_data[7]),self.note, self.user))
+
                 self.mycursor.execute("commit;")
             except Exception as e:
+                print("Masuk exc insert")
                 #print(str(e))
                 self.buttonReply = QtWidgets.QMessageBox
                 self.warning = self.buttonReply.question(self, 'WARNING', str(e),
