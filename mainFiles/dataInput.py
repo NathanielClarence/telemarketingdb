@@ -1,9 +1,10 @@
-from PyQt5 import QtWidgets, uic, QtGui
+from PyQt5 import QtWidgets, uic, QtGui, QtCore
 from searchUser import Ui as searchCust
-from addBank import Ui as addBnk
-from addColumn import Ui as addCol
+#from addBank import Ui as addBnk
+#from addColumn import Ui as addCol
 import datetime
 import pandas as pd
+import re
 import sys
 
 class Ui(QtWidgets.QWidget):
