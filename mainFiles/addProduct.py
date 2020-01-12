@@ -36,6 +36,7 @@ class Ui(QtWidgets.QWidget):
                 self.mycursor.execute(self.query, (self.products[self.cmb_prd.currentIndex()][1],))
                 self.mycursor.execute("Drop table "+self.usedb+".prod_"+self.products[self.cmb_prd.currentIndex()][1]+";")
                 self.mycursor.execute("Drop table "+self.usedb+".bank_" + self.products[self.cmb_prd.currentIndex()][1] + ";")
+                self.mycursor.execute("Drop table " + self.usedb + ".assign_" + self.products[self.cmb_prd.currentIndex()][1] + ";")
                 self.mycursor.execute("commit;")
 
                 self.buttonReply = QtWidgets.QMessageBox
@@ -61,6 +62,7 @@ class Ui(QtWidgets.QWidget):
             self.mycursor.execute("use "+self.usedb+";")
             self.mycursor.execute("CREATE TABLE prod_"+self.code+" like prod_cc;")
             self.mycursor.execute("CREATE TABLE bank_"+self.code+" like bank_cc;")
+            self.mycursor.execute("CREATE TABLE assign_"+self.code+" like bank_cc;")
             self.mycursor.execute("commit;")
             self.mycursor.execute("use mysql;")
 

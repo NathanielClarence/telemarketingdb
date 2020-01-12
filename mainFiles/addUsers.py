@@ -127,6 +127,10 @@ class Ui(QtWidgets.QWidget):
 
             self.query = "INSERT INTO "+self.usedb+".admins(name, password, username, privilege, product) VALUES (%s, sha2(%s, 512), %s, %s, %s);"
             self.mycursor.execute(self.query, (self.name, self.passw, self.uname, self.privilege, self.prod))
+            print(self.query)
+            print(self.name)
+            print(self.passw)
+            self.mycursor.execute("commit;")
             self.mycursor.execute("use mysql;")
 
             self.buttonReply = QtWidgets.QMessageBox
