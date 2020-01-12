@@ -208,6 +208,7 @@ class Ui(QtWidgets.QWidget):
                 self.inputList = [self.in_name, self.in_phone, self.in_id, self.in_dob, self.in_address, self.in_cc,
                                   self.in_earning, self.cmb_source]
 
+                self.isBankExist = False
                 while self.cntrow < self.rows:
                     self.listData = []
                     self.inpt = 0
@@ -218,24 +219,22 @@ class Ui(QtWidgets.QWidget):
                         elif self.inpt ==1:
                             self.inputList[self.inpt].setText('0'+str(self.dictData.get(x)[self.cntrow]))
                         elif self.inpt == 7:
-                            self.isBankExist = False
                             for y in self.banks:
                                 if y == str(self.dictData.get(x)[self.cntrow]):
                                     self.isBankExist = True
+                                    self.inputList[self.inpt].setCurrentText(str(self.dictData.get(x)[self.cntrow]))
                                     break
-
-                            if self.isBankExist:
-                                self.inputList[self.inpt].setCurrentText(str(self.dictData.get(x)[self.cntrow]))
-                            else:
-                                self.warning = self.buttonReply.question(self, 'WARNING',
-                                                                         'Bank is not registered',
-                                                                         QtWidgets.QMessageBox.Ok)
                         else:
                             self.inputList[self.inpt].setText(str(self.dictData.get(x)[self.cntrow]))
                         self.inpt+=1
                     #print(self.listData)
-                    self.addSingle()
                     self.cntrow += 1
+                    if self.isBankExist:
+                        self.addSingle()
+                    else:
+                        self.warning = self.buttonReply.question(self, 'WARNING',
+                                                                 'Bank is not registered',
+                                                                 QtWidgets.QMessageBox.Ok)
 
                 self.buttonReply = QtWidgets.QMessageBox
                 self.warning = self.buttonReply.question(self, 'Import Data', "Data berhasil diimport",
