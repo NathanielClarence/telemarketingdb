@@ -86,16 +86,13 @@ class Ui(QtWidgets.QWidget):
         self.phone = str(self.in_phone.text())
         self.phone = re.sub('[^0-9]+', '', re.sub("\+62", '0', self.phone))
         if self.phone == '':
-            print("Masuk add single self.phone if")
+            #print("Masuk add single self.phone if")
             self.buttonReply = QtWidgets.QMessageBox
             self.warning = self.buttonReply.question(self, 'WARNING', 'Phone number cannot be empty', QtWidgets.QMessageBox.Ok)
         else:
             try:
                 if not self.phone.isnumeric():
                     raise Exception("Invalid phone number "+self.in_phone.text())
-                    '''print("True")
-                else:
-                    print("Try Again")'''
 
                 self.insData = []
                 self.insData.append(str(self.unicode))
@@ -228,13 +225,15 @@ class Ui(QtWidgets.QWidget):
                             self.inputList[self.inpt].setText(str(self.dictData.get(x)[self.cntrow]))
                         self.inpt+=1
                     #print(self.listData)
-                    self.cntrow += 1
+
                     if self.isBankExist:
                         self.addSingle()
                     else:
                         self.warning = self.buttonReply.question(self, 'WARNING',
-                                                                 'Bank is not registered',
+                                                                 'Source not exist',
                                                                  QtWidgets.QMessageBox.Ok)
+
+                    self.cntrow += 1
 
                 self.buttonReply = QtWidgets.QMessageBox
                 self.warning = self.buttonReply.question(self, 'Import Data', "Data berhasil diimport",
@@ -253,7 +252,7 @@ class Ui(QtWidgets.QWidget):
 
             for y in self.bank_prod:
                 self.banks.append(y[0])
-        self.banks = tuple(self.banks)
+        self.banks = ("Koran",) +tuple(self.banks)
 
         for z in self.banks:
             self.cmb_source.addItem(z)
