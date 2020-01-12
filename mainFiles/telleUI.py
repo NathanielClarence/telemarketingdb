@@ -207,10 +207,12 @@ class Ui(QtWidgets.QWidget):
 
     def followUp(self):
         if self.prd.lower() == 'pl':
+            self.saveCallResult()
             self.follupWindow = QtWidgets.QWidget()
             self.follupWindow.ui = follupPL(self.priv, self.parentWin, self.mycursor, self.user, self.prd, str(self.cust_data[7]))
             self.close()
         else:
+            self.saveCallResult()
             self.follupWindow = QtWidgets.QWidget()
             self.follupWindow.ui = follupCC(self.priv, self.parentWin, self.mycursor, self.user, self.prd,
                                             str(self.cust_data[7]))
@@ -446,28 +448,32 @@ class Ui(QtWidgets.QWidget):
         self.parentWin.show()
         self.close()
 
-    def next(self):
-        '''self.query = "update customers set fetched = false where id = %s;"
-        self.mycursor.execute(self.query, (str(self.cust_data[7]),))
-        self.mycursor.execute("commit;")'''
+    def saveCallResult(self):
         self.uniqueCd = self.uniqueCode.text()
         if self.uniqueCode.text() != '':
             self.prodData()
         else:
             try:
-                self.query = "insert into "+self.table+" (cust_id, connected, received, explained, note, updated, updater) values" \
-                                                        "(%s,"+str(self.connected)+","+str(self.received)+","+str(self.explained)+"" \
-                                                        ",%s, curdate(), %s);"
-                self.query, (str(self.cust_data[7]),self.note, self.user)
-                self.mycursor.execute(self.query, (str(self.cust_data[7]),self.note, self.user))
+                self.query = "insert into " + self.table + " (cust_id, connected, received, explained, note, updated, updater) values" \
+                                                           "(%s," + str(self.connected) + "," + str(
+                    self.received) + "," + str(self.explained) + "" \
+                                                                 ",%s, curdate(), %s);"
+                self.query, (str(self.cust_data[7]), self.note, self.user)
+                self.mycursor.execute(self.query, (str(self.cust_data[7]), self.note, self.user))
 
                 self.mycursor.execute("commit;")
             except Exception as e:
                 print("Masuk exc insert")
-                #print(str(e))
+                # print(str(e))
                 self.buttonReply = QtWidgets.QMessageBox
                 self.warning = self.buttonReply.question(self, 'WARNING', str(e),
                                                          QtWidgets.QMessageBox.Ok)
+
+    def next(self):
+        '''self.query = "update customers set fetched = false where id = %s;"
+        self.mycursor.execute(self.query, (str(self.cust_data[7]),))
+        self.mycursor.execute("commit;")'''
+        self.saveCallResult()
         self.nextCust = QtWidgets.QWidget()
         self.nextCust.ui = Ui(self.priv, self.parentWin, self.mycursor, self.user, self.prd)
         self.close()

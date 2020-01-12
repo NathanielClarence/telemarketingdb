@@ -75,14 +75,14 @@ class Ui(QtWidgets.QWidget):
         except Exception as e:
             print(str(e))
 
-        try:
+        '''try:
             self.query = "UPDATE customers set fetched = True where id = %s;"
             self.mycursor.execute(self.query, (self.targetID,))
             self.mycursor.execute("commit;")
         except Exception as e:
             self.buttonReply = QtWidgets.QMessageBox
             self.warning = self.buttonReply.question(self, 'WARNING', str(e),
-                                                     QtWidgets.QMessageBox.Ok)
+                                                     QtWidgets.QMessageBox.Ok)'''
 
         self.chk_berkas.toggled.connect(lambda: self.activateData(self.chk_dataMasuk, self.chk_berkas))
         self.chk_dataMasuk.toggled.connect(lambda: self.activateNext(self.chk_Approve, self.chk_dataMasuk, self.chk_tidakApprove))
