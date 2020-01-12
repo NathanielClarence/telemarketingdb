@@ -46,26 +46,35 @@ class Ui(QtWidgets.QWidget):
         for x in self.resultUser:
             self.cmb_telle.addItem(x[0])
         self.telle_name.setText(str(self.resultUser[self.cmb_telle.currentIndex()][1]))
-
-        self.query = "select id, nama, telp, alamat, asal_data, assigned_telle from assign_"+self.cmb_product.currentText()+" left join (select id, nama" \
-                     ", telp, alamat, asal_data from customers where id not in (select cust_id from prod_"+self.cmb_product.currentText()+" where updater" \
-                     " = %s)) as cst on id = cust_id where id is not null and assign_date < date_sub(now(), interval 1 month) and times_assigned < 4;"
-        self.mycursor.execute(self.query, (self.cmb_telle.currentText(),))
-        self.result = self.mycursor.fetchall()
-
-        self.tableWidget.setRowCount(len(self.result))
-        self.tableWidget.setColumnCount(len(self.result[0]))
-
         self.checkboxList = []
-
         self.vLayout = self.scrollAreaWidgetContents.layout()
 
-        for x in range(len(self.result)):
-            for y in range(len(self.result[x])):
-                self.tableWidget.setItem(x, y, QtWidgets.QTableWidgetItem(str(self.result[x][y])))
-            self.cb = QtWidgets.QCheckBox(str(self.result[x][0]))
-            self.checkboxList.append(self.cb)
-            self.vLayout.addWidget(self.cb)
+        try:
+            self.query = "select id, nama, telp, alamat, asal_data, assigned_telle from assign_"+self.cmb_product.currentText()+" left join (select id, nama" \
+                         ", telp, alamat, asal_data from customers where id not in (select cust_id from prod_"+self.cmb_product.currentText()+" where updater" \
+                         " = %s)) as cst on id = cust_id where id is not null and assign_date < date_sub(now(), interval 1 month) and times_assigned < 4 or " \
+                         "assign_date is null;"
+            self.mycursor.execute(self.query, (self.cmb_telle.currentText(),))
+            self.result = self.mycursor.fetchall()
+
+            if len(self.result) == 0:
+                raise Exception("No data to show for this user.")
+            print("bocor")
+
+            self.tableWidget.setRowCount(len(self.result))
+            self.tableWidget.setColumnCount(len(self.result[0]))
+
+            for x in range(len(self.result)):
+                for y in range(len(self.result[x])):
+                    self.tableWidget.setItem(x, y, QtWidgets.QTableWidgetItem(str(self.result[x][y])))
+                self.cb = QtWidgets.QCheckBox(str(self.result[x][0]))
+                self.checkboxList.append(self.cb)
+                self.vLayout.addWidget(self.cb)
+        except Exception as e:
+            print(e)
+            self.buttonReply = QtWidgets.QMessageBox
+            self.warning = self.buttonReply.question(self, 'WARNING', str(e),
+                                                     QtWidgets.QMessageBox.Ok)
 
         self.cmb_product.currentIndexChanged.connect(self.refreshUser)
         self.cmb_telle.currentIndexChanged.connect(self.refreshDB)
@@ -104,51 +113,61 @@ class Ui(QtWidgets.QWidget):
             self.checkboxList[x].setChecked(True)
 
     def refreshUser(self):
-        self.cmb_telle.clear()
-        self.query = "select username, name from admins where privilege = 'telle' and active_status = 1 and product = %s;"
-        self.mycursor.execute(self.query, (self.cmb_product.currentText(),))
-        self.resultUser = self.mycursor.fetchall()
-        #print(self.resultUser)
-        for x in self.resultUser:
-            self.cmb_telle.addItem(x[0])
-        self.telle_name.setText(str(self.resultUser[self.cmb_telle.currentIndex()][1]))
+        try:
+            self.cmb_telle.clear()
+            self.query = "select username, name from admins where privilege = 'telle' and active_status = 1 and product = %s;"
+            self.mycursor.execute(self.query, (self.cmb_product.currentText(),))
+            self.resultUser = self.mycursor.fetchall()
+            #print(self.resultUser)
+            for x in self.resultUser:
+                self.cmb_telle.addItem(x[0])
+            self.telle_name.setText(str(self.resultUser[self.cmb_telle.currentIndex()][1]))
+        except Exception as e:
+            print("user")
+            print(str(e))
 
         self.refreshDB()
 
     def refreshDB(self):
-        '''self.query = "select username, name from admins where privilege = 'telle' and active_status = 1 and product = %s;"
-        self.mycursor.execute(self.query, (self.cmb_product.currentText(),))
-        self.resultUser = self.mycursor.fetchall()
-        for x in self.resultUser:
-            self.cmb_telle.addItem(x[0])'''
-        self.telle_name.setText(str(self.resultUser[self.cmb_telle.currentIndex()][1]))
+        try:
+            self.telle_name.setText(str(self.resultUser[self.cmb_telle.currentIndex()][1]))
 
-        self.query = "select id, nama, telp, alamat, asal_data, assigned_telle from assign_"+self.cmb_product.currentText()+" left join (select id, nama" \
-                     ", telp, alamat, asal_data from customers where id not in (select cust_id from prod_"+self.cmb_product.currentText()+" where updater" \
-                     " = %s)) as cst on id = cust_id where id is not null and assign_date < date_sub(now(), interval 1 month) and times_assigned < 4;"
-        self.mycursor.execute(self.query, (self.cmb_telle.currentText(),))
-        self.result = self.mycursor.fetchall()
+            self.query = "select id, nama, telp, alamat, asal_data, assigned_telle from assign_"+self.cmb_product.currentText()+" left join (select id, nama" \
+                         ", telp, alamat, asal_data from customers where id not in (select cust_id from prod_"+self.cmb_product.currentText()+" where updater" \
+                         " = %s)) as cst on id = cust_id where id is not null and assign_date < date_sub(now(), interval 1 month) and times_assigned < 4 or " \
+                         "assign_date is null;"
+            self.mycursor.execute(self.query, (self.cmb_telle.currentText(),))
+            self.result = self.mycursor.fetchall()
 
-        self.tableWidget.setRowCount(len(self.result))
-        self.tableWidget.setColumnCount(len(self.result[0]))
+            if len(self.result) == 0:
+                raise Exception("No data to show for this user.")
+            #print("bocor")
+            self.tableWidget.setRowCount(len(self.result))
+            self.tableWidget.setColumnCount(len(self.result[0]))
 
-        for x in self.checkboxList:
-            x.setParent(None)
-            #self.vLayout.removeItem(x)
-            self.vLayout.removeWidget(x)
+            for x in self.checkboxList:
+                x.setParent(None)
+                #self.vLayout.removeItem(x)
+                self.vLayout.removeWidget(x)
 
-        self.checkboxList = []
+            self.checkboxList = []
 
-        #self.vLayout = QtWidgets.QVBoxLayout(self.scrollArea)
-        for x in range(len(self.result)):
-            for y in range(len(self.result[x])):
-                self.tableWidget.setItem(x, y, QtWidgets.QTableWidgetItem(str(self.result[x][y])))
-            self.cb = QtWidgets.QCheckBox(str(self.result[x][0]))
-            #print(str(self.result[x][0]))
-            self.checkboxList.append(self.cb)
-            self.vLayout.addWidget(self.cb)
+            #self.vLayout = QtWidgets.QVBoxLayout(self.scrollArea)
+            for x in range(len(self.result)):
+                for y in range(len(self.result[x])):
+                    self.tableWidget.setItem(x, y, QtWidgets.QTableWidgetItem(str(self.result[x][y])))
+                self.cb = QtWidgets.QCheckBox(str(self.result[x][0]))
+                #print(str(self.result[x][0]))
+                self.checkboxList.append(self.cb)
+                self.vLayout.addWidget(self.cb)
 
-        self.lbl_totalData.setText(str(len(self.result)))
+            self.lbl_totalData.setText(str(len(self.result)))
+        except Exception as e:
+            print("db")
+            print(str(e))
+            self.buttonReply = QtWidgets.QMessageBox
+            self.warning = self.buttonReply.question(self, 'WARNING', str(e),
+                                                     QtWidgets.QMessageBox.Ok)
         #print(str(self.checkboxList))
 
 '''if __name__ == "__main__":
