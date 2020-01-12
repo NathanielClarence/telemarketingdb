@@ -76,8 +76,8 @@ class Ui(QtWidgets.QWidget):
             self.warning = self.buttonReply.question(self, 'WARNING', str(e),
                                                      QtWidgets.QMessageBox.Ok)
 
-        self.cmb_product.currentIndexChanged.connect(self.refreshUser)
-        self.cmb_telle.currentIndexChanged.connect(self.refreshDB)
+        self.cmb_product.currentTextChanged.connect(self.refreshUser)
+        self.cmb_telle.currentTextChanged.connect(self.refreshDB)
         self.lbl_totalData.setText(str(len(self.result)))
         self.btn_partAssign.clicked.connect(self.partialAssign)
         self.btn_assign.clicked.connect(self.assignTo)
@@ -125,11 +125,15 @@ class Ui(QtWidgets.QWidget):
         except Exception as e:
             print("user")
             print(str(e))
-
-        self.refreshDB()
+        #self.refreshDB()
 
     def refreshDB(self):
         try:
+            self.tableWidget.setRowCount(0)
+            for x in self.checkboxList:
+                x.setParent(None)
+                #self.vLayout.removeItem(x)
+                self.vLayout.removeWidget(x)
             self.telle_name.setText(str(self.resultUser[self.cmb_telle.currentIndex()][1]))
 
             self.query = "select id, nama, telp, alamat, asal_data, assigned_telle from assign_"+self.cmb_product.currentText()+" left join (select id, nama" \
@@ -145,21 +149,17 @@ class Ui(QtWidgets.QWidget):
             self.tableWidget.setRowCount(len(self.result))
             self.tableWidget.setColumnCount(len(self.result[0]))
 
-            for x in self.checkboxList:
-                x.setParent(None)
-                #self.vLayout.removeItem(x)
-                self.vLayout.removeWidget(x)
-
             self.checkboxList = []
 
             #self.vLayout = QtWidgets.QVBoxLayout(self.scrollArea)
-            for x in range(len(self.result)):
-                for y in range(len(self.result[x])):
-                    self.tableWidget.setItem(x, y, QtWidgets.QTableWidgetItem(str(self.result[x][y])))
-                self.cb = QtWidgets.QCheckBox(str(self.result[x][0]))
-                #print(str(self.result[x][0]))
-                self.checkboxList.append(self.cb)
-                self.vLayout.addWidget(self.cb)
+            if len(self.result)!=0:
+                for x in range(len(self.result)):
+                    for y in range(len(self.result[x])):
+                        self.tableWidget.setItem(x, y, QtWidgets.QTableWidgetItem(str(self.result[x][y])))
+                    self.cb = QtWidgets.QCheckBox(str(self.result[x][0]))
+                    #print(str(self.result[x][0]))
+                    self.checkboxList.append(self.cb)
+                    self.vLayout.addWidget(self.cb)
 
             self.lbl_totalData.setText(str(len(self.result)))
         except Exception as e:
