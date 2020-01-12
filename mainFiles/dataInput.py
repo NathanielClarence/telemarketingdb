@@ -34,7 +34,7 @@ class Ui(QtWidgets.QWidget):
         self.lbl_gap.setVisible(False)
         QtWidgets.QToolTip.setFont(QtGui.QFont('Serif', 9))
         self.in_phone.setToolTip('<b>No HP</b> harus diisi')
-        self.in_source.setToolTip('<b>Asal data</b> harus diisi')
+        self.cmb_source.setToolTip('<b>Asal data</b> harus diisi')
         self.btn_addData.clicked.connect(self.addSingle)
         '''if self.priv == 'adm':
             self.btn_addCol.setVisible(True)
@@ -50,15 +50,11 @@ class Ui(QtWidgets.QWidget):
         self.in_dob.setMaximumDateTime(datetime.datetime.now())
         self.btn_import.clicked.connect(self.importDB)
 
-        try:
-            self.query = "SELECT kode_produk FROM products"
-            self.mycursor.execute(self.query)
-            #self.mycursor.execute("commit;")
-
-            self.product_code = self.mycursor.fetchall()
-            self.getBankData()
-        except Exception as e:
-            print(e)
+        self.query = "select kode_produk from products;"
+        self.mycursor.execute(self.query)
+        self.products = self.mycursor.fetchall()
+        self.products = tuple(self.products)
+        self.GetBankDatas()
 
     '''def alterDB(self):
         self.altDB = QtWidgets.QWidget
@@ -89,16 +85,14 @@ class Ui(QtWidgets.QWidget):
     def addSingle(self):
         self.phone = str(self.in_phone.text())
         self.phone = re.sub('[^0-9]+', '', re.sub("\+62", '0', self.phone))
-        if self.phone == '' or self.in_source == '':
+        if self.phone == '':
+            #print("Masuk add single self.phone if")
             self.buttonReply = QtWidgets.QMessageBox
-            self.warning = self.buttonReply.question(self, 'WARNING', 'Phone number and source cannot be empty', QtWidgets.QMessageBox.Ok)
+            self.warning = self.buttonReply.question(self, 'WARNING', 'Phone number cannot be empty', QtWidgets.QMessageBox.Ok)
         else:
             try:
                 if not self.phone.isnumeric():
                     raise Exception("Invalid phone number "+self.in_phone.text())
-                    '''print("True")
-                else:
-                    print("Try Again")'''
 
                 self.insData = []
                 self.insData.append(str(self.unicode))
@@ -109,13 +103,12 @@ class Ui(QtWidgets.QWidget):
                 self.insData.append(str(self.in_address.toPlainText()))
                 self.insData.append(str(self.in_cc.text()))
                 self.insData.append(str(self.in_earning.text()))
-                self.insData.append(str(self.in_source.text()))
+                self.insData.append(str(self.cmb_source.currentText()))
 
                 for x in range(len(self.insData)):
                     if self.insData[x]=='':
                         self.insData[x]=None
 
-                #print(self.insData)
                 self.query = "INSERT INTO CUSTOMERS (unique_code, nama, telp, no_ktp, date_of_birth, alamat, cc, penghasilan, " \
                              "asal_data) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s);"
                 self.mycursor.execute(self.query, tuple(self.insData))
@@ -128,6 +121,7 @@ class Ui(QtWidgets.QWidget):
                 self.warning = self.buttonReply.question(self, 'Tambah Data', "Data berhasil ditambahkan",
                                                          QtWidgets.QMessageBox.Ok)
             except Exception as e:
+                print(e)
                 self.buttonReply = QtWidgets.QMessageBox
                 self.warning = self.buttonReply.question(self, 'WARNING', str(e),
                                                          QtWidgets.QMessageBox.Ok)
@@ -139,7 +133,7 @@ class Ui(QtWidgets.QWidget):
                 self.in_address.setText("")
                 self.in_cc.setText("")
                 self.in_earning.setText("")
-                self.in_source.setText("")
+                self.cmb_source.setCurrentIndex(0)
                 self.rebindUniqueNum()
 
     def addtData(self):
@@ -165,6 +159,7 @@ class Ui(QtWidgets.QWidget):
             self.mycursor.execute(self.query, tuple(self.ans))
             self.mycursor.execute("commit;")
         except Exception as e:
+            print(e)
             self.buttonReply = QtWidgets.QMessageBox
             self.warning = self.buttonReply.question(self, 'WARNING', str(e),
                                                      QtWidgets.QMessageBox.Ok)
@@ -208,8 +203,9 @@ class Ui(QtWidgets.QWidget):
 
                 self.cntrow = 0
                 self.inputList = [self.in_name, self.in_phone, self.in_id, self.in_dob, self.in_address, self.in_cc,
-                                  self.in_earning, self.in_source]
+                                  self.in_earning, self.cmb_source]
 
+                self.isBankExist = False
                 while self.cntrow < self.rows:
                     self.listData = []
                     self.inpt = 0
@@ -219,11 +215,24 @@ class Ui(QtWidgets.QWidget):
                             self.inputList[self.inpt].setDate(datetime.datetime.strptime(self.dictData.get(x)[self.cntrow], '%d/%m/%Y'))
                         elif self.inpt ==1:
                             self.inputList[self.inpt].setText('0'+str(self.dictData.get(x)[self.cntrow]))
+                        elif self.inpt == 7:
+                            for y in self.banks:
+                                if y == str(self.dictData.get(x)[self.cntrow]):
+                                    self.isBankExist = True
+                                    self.inputList[self.inpt].setCurrentText(str(self.dictData.get(x)[self.cntrow]))
+                                    break
                         else:
                             self.inputList[self.inpt].setText(str(self.dictData.get(x)[self.cntrow]))
                         self.inpt+=1
                     #print(self.listData)
-                    self.addSingle()
+
+                    if self.isBankExist:
+                        self.addSingle()
+                    else:
+                        self.warning = self.buttonReply.question(self, 'WARNING',
+                                                                 'Source not exist',
+                                                                 QtWidgets.QMessageBox.Ok)
+
                     self.cntrow += 1
 
                 self.buttonReply = QtWidgets.QMessageBox
@@ -234,24 +243,19 @@ class Ui(QtWidgets.QWidget):
                 self.warning = self.buttonReply.question(self, 'WARNING', str(e),
                                                          QtWidgets.QMessageBox.Ok)
 
-    def getBankData(self):
+    def GetBankDatas(self):
         self.banks=[]
-        for x in self.product_code:
-            self.query = "SELECT nama_bank FROM bank_" + x[0]
+        for x in self.products:
+            self.query = "select nama_bank from bank_" +  x[0]
             self.mycursor.execute(self.query)
             self.bank_prod = self.mycursor.fetchall()
-            #print(self.bank)
+
             for y in self.bank_prod:
                 self.banks.append(y[0])
-        self.banks = tuple(self.banks)
-        print(self.banks)
+        self.banks = ("Koran",) +tuple(self.banks)
 
-        try:
-            for x in self.banks:
-                self.cmb_asaldata.addItem(x)
-        except Exception as e:
-            print(e)
-
+        for z in self.banks:
+            self.cmb_source.addItem(z)
     '''def importXLS(self):
         print("import xls, all rows (depends on how many cols customers table need)")
         print("query: insert into customers(..., add.data) values (...,...,...), change '' to None")
