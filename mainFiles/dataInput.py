@@ -213,7 +213,7 @@ class Ui(QtWidgets.QWidget):
                         self.listData.append(self.dictData.get(x)[self.cntrow])
                         if self.inpt == 3:
                             self.inputList[self.inpt].setDate(datetime.datetime.strptime(self.dictData.get(x)[self.cntrow], '%d/%m/%Y'))
-                        elif self.inpt ==1:
+                        elif self.inpt == 1:
                             self.inputList[self.inpt].setText('0'+str(self.dictData.get(x)[self.cntrow]))
                         elif self.inpt == 7:
                             for y in self.banks:
@@ -229,8 +229,9 @@ class Ui(QtWidgets.QWidget):
                     if self.isBankExist:
                         self.addSingle()
                     else:
+                        self.buttonReply = QtWidgets.QMessageBox
                         self.warning = self.buttonReply.question(self, 'WARNING',
-                                                                 'Source not exist',
+                                                                 'Asal data untuk nomor HP: '+str(self.inputList[1].text())+' tidak sesuai.',
                                                                  QtWidgets.QMessageBox.Ok)
 
                     self.cntrow += 1
