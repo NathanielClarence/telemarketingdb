@@ -121,14 +121,14 @@ class Ui(QtWidgets.QWidget):
             self.buttonReply = QtWidgets.QMessageBox
             self.warning = self.buttonReply.question(self, 'WARNING', str(e), QtWidgets.QMessageBox.Ok)
 
-        try:
+        '''try:
             self.query = "UPDATE customers set fetched = True where id = %s;"
             self.mycursor.execute(self.query, (self.targetID,))
             self.mycursor.execute("commit;")
         except Exception as e:
             self.buttonReply = QtWidgets.QMessageBox
             self.warning = self.buttonReply.question(self, 'WARNING', str(e),
-                                                     QtWidgets.QMessageBox.Ok)
+                                                     QtWidgets.QMessageBox.Ok)'''
 
     def checkerAll(self):
         if self.chk_berkas.isChecked():
