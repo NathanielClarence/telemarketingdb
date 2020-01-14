@@ -9,7 +9,7 @@ class Ui(QtWidgets.QWidget):
     def __init__(self, priv, parentWin, mycursor, user, product, target=None, recontact = None):
         super(Ui, self).__init__()
         uic.loadUi('assets/ui/telleUI.ui', self)
-        self.show()
+        self.showFullScreen()
 
         self.priv = priv
         self.parentWin = parentWin
@@ -27,6 +27,7 @@ class Ui(QtWidgets.QWidget):
         self.initAddCol()
 
         self.setFixedSize(self.width(), self.height())
+        self.scrollArea.setGeometry(self.scrollArea.geometry().x(),self.scrollArea.geometry().x(), self.width()-20, self.height()-20)
 
         if self.recontact:
             self.btn_save.setEnabled(True)
@@ -65,9 +66,9 @@ class Ui(QtWidgets.QWidget):
                     print(self.dd[x])
                     self.colAdded[x].setText(self.dd[x])
         except Exception as e:
-            pass
-            '''print("Masuk exc")
-            self.buttonReply = QtWidgets.QMessageBox
+            #pass
+            print(str(e))
+            '''self.buttonReply = QtWidgets.QMessageBox
             self.warning = self.buttonReply.question(self, 'WARNING', str(e), QtWidgets.QMessageBox.Ok)
 '''
     def initUi(self):
