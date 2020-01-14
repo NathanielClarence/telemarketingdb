@@ -7,7 +7,9 @@ class Ui(QtWidgets.QWidget):
     def __init__(self, priv, parentWin, mycursor, user):
         super(Ui, self).__init__()
         uic.loadUi('assets/ui/assignCustomer.ui', self)
-        self.show()
+        self.showFullScreen()
+        self.scrollArea_2.setGeometry(self.scrollArea_2.geometry().x(), self.scrollArea_2.geometry().x(), self.width() - 40,
+                                    self.height() - 40)
 
         self.priv = priv
         #self.addData = []
@@ -23,16 +25,6 @@ class Ui(QtWidgets.QWidget):
         self.setFixedSize(self.width(), self.height())
 
     def initUI(self):
-        '''self.mydb = conn.connect(
-            host="localhost",
-            user='root',
-            passwd='root',
-            database="dbtest",
-            auth_plugin='mysql_native_password',
-            buffered=True
-        )
-        self.mycursor = self.mydb.cursor()'''
-
         self.query = "select kode_produk from products;"
         self.mycursor.execute(self.query)
         self.result = self.mycursor.fetchall()
@@ -59,7 +51,7 @@ class Ui(QtWidgets.QWidget):
 
             if len(self.result) == 0:
                 raise Exception("No data to show for this user.")
-            print("bocor")
+            #print("bocor")
 
             self.tableWidget.setRowCount(len(self.result))
             self.tableWidget.setColumnCount(len(self.result[0]))
@@ -106,11 +98,20 @@ class Ui(QtWidgets.QWidget):
         self.refreshDB()
 
     def partialAssign(self):
-        for x in self.checkboxList:
-            x.setChecked(False)
-        self.iteration = int(self.in_check.text())
-        for x in range(self.iteration):
-            self.checkboxList[x].setChecked(True)
+        try:
+            for x in self.checkboxList:
+                x.setChecked(False)
+            self.iteration = int(self.in_check.text())
+            if self.iteration > int(self.lbl_totalData.text()):
+                raise Exception("Input tidak boleh lebih besar dari "+str(self.lbl_totalData.text()))
+
+            for x in range(self.iteration):
+                self.checkboxList[x].setChecked(True)
+        except Exception as e:
+            print(e)
+            self.buttonReply = QtWidgets.QMessageBox
+            self.warning = self.buttonReply.question(self, 'WARNING', str(e),
+                                                     QtWidgets.QMessageBox.Ok)
 
     def refreshUser(self):
         try:
@@ -163,8 +164,8 @@ class Ui(QtWidgets.QWidget):
 
             self.lbl_totalData.setText(str(len(self.result)))
         except Exception as e:
-            print("db")
-            print(str(e))
+            #print("db")
+            #print(str(e))
             self.buttonReply = QtWidgets.QMessageBox
             self.warning = self.buttonReply.question(self, 'WARNING', str(e),
                                                      QtWidgets.QMessageBox.Ok)

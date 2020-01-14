@@ -15,9 +15,9 @@ class Ui(QtWidgets.QWidget):
         self.sResult = result
         self.product = product
 
-        window_width = 800
+        '''window_width = 800
         window_height = 600
-        self.setFixedSize(window_width, window_height)
+        self.setFixedSize(window_width, window_height)'''
         self.initUI()
 
     def initUI(self):
@@ -29,11 +29,12 @@ class Ui(QtWidgets.QWidget):
         self.layout_All.addWidget(self.pushButton)
         self.pushButton.setText("Return")
         self.pushButton.clicked.connect(self.closeWin)
-        self.show()
+        self.showFullScreen()
+        self.setFixedSize(self.width(), self.height())
 
     def createLayout_Container(self):
         self.scrollarea = QtWidgets.QScrollArea(self)
-        self.scrollarea.setFixedWidth(780)
+        #self.scrollarea.setFixedWidth(780)
         self.scrollarea.setWidgetResizable(True)
 
         self.widget = QtWidgets.QWidget()
