@@ -5,8 +5,11 @@ class Ui(QtWidgets.QWidget):
     def __init__(self, user, mycursor, parentWin):
         super(Ui, self).__init__()
         uic.loadUi('assets/ui/addRemoveProduct.ui', self)
+        self.showFullScreen()
         self.setFixedSize(self.width(), self.height())
-        self.show()
+        self.scrollArea.setGeometry(int(self.width() / 4), int(self.height() / 4), int(self.width() / 2),
+                                    int(self.height() / 2))
+
         self.dropip = None
         self.dropdb = None
         self.usedb = None

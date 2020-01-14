@@ -11,7 +11,9 @@ class Ui(QtWidgets.QWidget):
     def __init__(self, priv, parentWin, mycursor, user):
         super(Ui, self).__init__()
         uic.loadUi('assets/ui/adminData.ui', self)
-        self.show()
+        self.showFullScreen()
+        self.scrollArea.setGeometry(self.scrollArea.geometry().x(), self.scrollArea.geometry().x(), self.width() - 20,
+                                    self.height() - 20)
 
         self.priv = priv
         self.addData = []

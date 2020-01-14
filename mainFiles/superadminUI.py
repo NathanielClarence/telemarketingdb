@@ -11,7 +11,10 @@ class Ui(QtWidgets.QWidget):
         super(Ui, self).__init__()
         uic.loadUi('assets/ui/superadminUi.ui', self)
         self.setFixedSize(self.width(), self.height())
-        self.show()
+        self.showFullScreen()
+        self.setFixedSize(self.width(), self.height())
+        self.scrollArea.setGeometry(int(self.width() / 4), int(self.height() / 4), int(self.width() / 2),
+                                    int(self.height() / 2))
 
         self.user = user
         self.mycursor = mycursor
