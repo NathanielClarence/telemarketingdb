@@ -4,6 +4,7 @@ from addUsers import Ui as addAdmins
 from addProduct import Ui as addPrdc
 from addBank import Ui as addBnk
 from addColumn import Ui as addCol
+from superaddtelleparam import Ui as telleParameter
 import fetcher
 
 class Ui(QtWidgets.QWidget):
@@ -35,6 +36,12 @@ class Ui(QtWidgets.QWidget):
         self.btn_addBank.clicked.connect(self.tambahBank)
         self.btn_addCol.clicked.connect(self.alterDB)
         self.btn_refresh.clicked.connect(self.refreshData)
+        self.btn_DataTelleCircle.clicked.connect(self.telleParams)
+
+    def telleParams(self):
+        self.telleParameter = QtWidgets.QDialog()
+        self.telleParameter.ui = telleParameter(self.user, self.mycursor, self)
+        self.hide()
 
     def refreshData(self):
         self.totalData()
