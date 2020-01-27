@@ -37,18 +37,6 @@
     <layout class="QGridLayout" name="gridLayout_2">
      <item row="0" column="0">
       <layout class="QGridLayout" name="gridLayout">
-       <item row="4" column="0">
-        <widget class="QPushButton" name="btn_addBank">
-         <property name="font">
-          <font>
-           <pointsize>10</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Tambah Bank</string>
-         </property>
-        </widget>
-       </item>
        <item row="0" column="0">
         <widget class="QPushButton" name="btn_add">
          <property name="font">
@@ -61,7 +49,19 @@
          </property>
         </widget>
        </item>
-       <item row="3" column="0">
+       <item row="6" column="0">
+        <widget class="QPushButton" name="btn_back">
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Logout</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
         <widget class="QPushButton" name="btn_addCol">
          <property name="font">
           <font>
@@ -73,19 +73,7 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="0">
-        <widget class="QPushButton" name="btn_addProduct">
-         <property name="font">
-          <font>
-           <pointsize>10</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Tambah/Hapus Produk</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
+       <item row="3" column="0">
         <widget class="QPushButton" name="btn_addSuperadmin">
          <property name="font">
           <font>
@@ -97,7 +85,31 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="1" rowspan="6">
+       <item row="2" column="0">
+        <widget class="QPushButton" name="btn_addProduct">
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Tambah/Hapus Produk</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="0">
+        <widget class="QPushButton" name="btn_addBank">
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Tambah Bank</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1" rowspan="7">
         <layout class="QFormLayout" name="formLayout_2">
          <item row="0" column="1">
           <widget class="QPushButton" name="btn_refresh">
@@ -180,15 +192,10 @@
          </item>
         </layout>
        </item>
-       <item row="5" column="0">
-        <widget class="QPushButton" name="btn_back">
-         <property name="font">
-          <font>
-           <pointsize>10</pointsize>
-          </font>
-         </property>
+       <item row="1" column="0">
+        <widget class="QPushButton" name="btn_DataTelleCircle">
          <property name="text">
-          <string>Logout</string>
+          <string>Tambah/Ubah Perputaran Data Telle</string>
          </property>
         </widget>
        </item>
