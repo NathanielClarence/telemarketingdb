@@ -124,8 +124,8 @@ class Ui(QtWidgets.QWidget):
                 self.productRes = self.mycursor.fetchall()
 
                 for x in self.productRes:
-                    self.query = "insert into assign_"+str(x[0])+" (cust_id, assigned_telle, times assigned) values ("+self.result[0]+"" \
-                                 ", 'None', 0);"
+                    self.query = "insert into assign_"+str(x[0])+" (cust_id, assigned_telle, times_assigned) values ('"+str(self.result[0])+"'" \
+                                 ", 'None', '0');"
                     self.mycursor.execute(self.query)
                 self.mycursor.execute("commit;")
 
