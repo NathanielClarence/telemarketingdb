@@ -114,6 +114,19 @@ class Ui(QtWidgets.QWidget):
                 self.query = "INSERT INTO CUSTOMERS (unique_code, nama, telp, no_ktp, date_of_birth, alamat, cc, penghasilan, " \
                              "asal_data) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s);"
                 self.mycursor.execute(self.query, tuple(self.insData))
+
+                self.query = "select max(id) from customers;"
+                self.mycursor.execute(self.query)
+                self.result = self.mycursor.fetchone()
+
+                self.query = "select kode_produk from products;"
+                self.mycursor.execute(self.query)
+                self.productRes = self.mycursor.fetchall()
+
+                for x in self.productRes:
+                    self.query = "insert into assign_"+str(x[0])+" (cust_id, assigned_telle, times_assigned) values ('"+str(self.result[0])+"'" \
+                                 ", 'None', '0');"
+                    self.mycursor.execute(self.query)
                 self.mycursor.execute("commit;")
 
                 if len(self.addColumns)!=0:
