@@ -68,10 +68,12 @@ class Ui(QtWidgets.QWidget):
         except Exception as e:
             #pass
             print(str(e))
-            '''self.buttonReply = QtWidgets.QMessageBox
-            self.warning = self.buttonReply.question(self, 'WARNING', str(e), QtWidgets.QMessageBox.Ok)
-'''
+
     def initUi(self):
+        self.prospect_value = "0"
+        self.comment = ""
+        self.appointment_type = "Call"
+
         self.btn_pickup.setVisible(False)
         self.btn_fpickup.setVisible(False)
         self.btn_info.setVisible(False)
@@ -86,6 +88,12 @@ class Ui(QtWidgets.QWidget):
         self.btn_save.setVisible(False)
         self.btn_next.setEnabled(False)
         self.in_dob.setMaximumDateTime(datetime.now())
+        self.txt_reason.setVisible(False)
+        self.lbl_reason.setVisible(False)
+        self.btn_hp.setVisible(False)
+        self.btn_wp.setVisible(False)
+        self.btn_cp.setVisible(False)
+        self.cmb_appType.setVisible(False)
 
         if self.priv != "adm":
             self.in_name.setEnabled(False)
@@ -110,7 +118,11 @@ class Ui(QtWidgets.QWidget):
         self.btn_fpickup.clicked.connect(self.fpick)
         self.btn_info.clicked.connect(self.inf)
         self.btn_finfo.clicked.connect(self.finf)
-        self.btn_interest.clicked.connect(self.inter)
+        #need to be changed
+        self.btn_interest.clicked.connect(self.prospect)
+        self.btn_hp.clicked.connect(self.inter)
+        self.btn_wp.clicked.connect(self.warmProspect)
+        self.btn_cp.clicked.connect(self.coldProspect)
         self.btn_finterest.clicked.connect(self.finter)
         self.btn_abstain.clicked.connect(self.abs)
         self.btn_save.clicked.connect(self.save)
@@ -170,16 +182,6 @@ class Ui(QtWidgets.QWidget):
             self.warning = self.buttonReply.question(self, 'WARNING', "Belum ada data",
                                                      QtWidgets.QMessageBox.Ok)
 
-        '''try:
-            self.query = "update customers set fetched = true where id = " + str(self.cust_data[7]) + ";"
-            #print(self.query)
-            self.mycursor.execute(self.query)
-            self.mycursor.execute("commit;")
-        except Exception as e:
-            self.buttonReply = QtWidgets.QMessageBox
-            self.warning = self.buttonReply.question(self, 'WARNING', str(e),
-                                                     QtWidgets.QMessageBox.Ok)'''
-
         # kalau ada null di db, ganti jadi ""
         for x in self.cust_data:
             if x is None:
@@ -196,6 +198,15 @@ class Ui(QtWidgets.QWidget):
 
         # terakhir dikontak oleh telle (bisa telle yang sama atau yang berbeda)
         self.lastDate()
+
+    def prospect(self):
+        self.note = "Tertarik"
+        self.btn_hp.setVisible(True)
+        self.btn_wp.setVisible(True)
+        self.btn_cp.setVisible(True)
+        self.btn_hp.setEnabled(True)
+        self.btn_wp.setEnabled(True)
+        self.btn_cp.setEnabled(True)
 
     def lastDate(self):
         self.query = "SELECT updated from "+self.table+" where cust_id = "+str(self.cust_data[7])+" order by updated desc;"
@@ -271,7 +282,6 @@ class Ui(QtWidgets.QWidget):
 
             self.btn_save.setEnabled(False)
         else:
-
             self.buttonReply = QtWidgets.QMessageBox
             self.warning = self.buttonReply.question(self, 'WARNING', 'Phone number and source cannot be empty',
                                                      QtWidgets.QMessageBox.Ok)
@@ -309,13 +319,15 @@ class Ui(QtWidgets.QWidget):
             else:
                 self.recontact = None
             self.bankChoice = str(self.cmb_banks.currentText())
-            self.query = "insert into "+self.table+" (cust_id, connected, received, explained, note, unique_code, updated, updater, recontact, bank) values" \
+            self.query = "insert into "+self.table+" (cust_id, connected, received, explained, note, unique_code, updated, updater, recontact, bank" \
+                                                   ", prospect, app_type, comment) values" \
                                                     "(%s,"+str(self.connected)+","+str(self.received)+","+str(self.explained)+"" \
-                                                    ",%s,%s, curdate(), %s, %s, %s);"
+                                                    ",%s,%s, curdate(), %s, %s, %s, %s, %s, %s);"
             self.uniqueCd = self.uniqueCode.text()
             if self.uniqueCd == "":
                 self.uniqueCd = None
-            self.mycursor.execute(self.query, (str(self.cust_data[7]),self.note,self.uniqueCd, self.user, self.recontact, self.bankChoice))
+            self.mycursor.execute(self.query, (str(self.cust_data[7]),self.note,self.uniqueCd, self.user, self.recontact
+                                               , self.bankChoice, self.prospect_value, self.appointment_type, self.comment))
             self.mycursor.execute("commit;")
         except Exception as e:
             #print(str(e))
@@ -324,23 +336,52 @@ class Ui(QtWidgets.QWidget):
             self.warning = self.buttonReply.question(self, 'WARNING', str(e),
                                                      QtWidgets.QMessageBox.Ok)
 
+    #Fungsi warm prospect
+    def warmProspect(self):
+        self.prospect_value = "2"
+        self.comment = "Warm Prospect"
+        self.btn_next.setEnabled(True)
+        self.btn_next.setVisible(True)
+        self.btn_cp.setEnabled(False)
+        self.btn_hp.setEnabled(False)
+        #self.btn_
+
+    #Fungsi cold prospect
+    def coldProspect(self):
+        self.prospect_value = "3"
+        self.comment = "Cold Prospect"
+        self.btn_next.setEnabled(True)
+        self.btn_next.setVisible(True)
+        self.btn_wp.setEnabled(False)
+        self.btn_hp.setEnabled(False)
+
     def abs(self):
         self.note = "Pikir-pikir"
+        self.prospect_value = "2"
+        self.comment = "Appointment"
         self.lbl_hub.setVisible(True)
         self.in_recontact.setVisible(True)
         self.in_recontact.setEnabled(True)
         self.btn_next.setEnabled(True)
         self.in_recontact.setDateTime(datetime.now())
+        self.cmb_appType.setVisible(True)
+        self.cmb_appType.setEnabled(True)
 
     def finter(self):
         self.note = "Tidak"
+        self.prospect_value = "2"
         self.btn_interest.setEnabled(False)
         self.btn_finterest.setEnabled(False)
         self.btn_abstain.setEnabled(False)
         self.btn_next.setEnabled(True)
+        self.txt_reason.setVisible(True)
+        self.lbl_reason.setVisible(True)
+        self.txt_reason.setEnabled(True)
+        self.lbl_reason.setEnabled(True)
 
     def inter(self):
-        self.note = "Tertarik"
+        self.prospect_value = "1"
+        self.comment = "Hot Prospect"
         #print(self.note)
         self.prod = self.prd.upper()
         self.cd = self.cust_data[6][:4]+"/"+self.prod+self.cust_data[6][4:]
@@ -353,12 +394,14 @@ class Ui(QtWidgets.QWidget):
                                                      QtWidgets.QMessageBox.Ok)
         #print(self.uniqueCode.text())
         #print(self.note)
+        self.btn_wp.setEnabled(False)
+        self.btn_cp.setEnabled(False)
+
         self.btn_interest.setEnabled(False)
         self.btn_finterest.setEnabled(False)
         self.btn_abstain.setEnabled(False)
         self.lbl_bank.setVisible(True)
         self.cmb_banks.setVisible(True)
-        #self.btn_next.setEnabled(True)
         self.btn_next.setEnabled(True)
         self.btn_follup.setEnabled(True)
 
@@ -375,10 +418,14 @@ class Ui(QtWidgets.QWidget):
 
     def finf(self):
         self.explained = False
-        self.note="Tidak"
+        self.note= "Tidak"
         self.btn_info.setEnabled(False)
         self.btn_finfo.setEnabled(False)
         self.btn_next.setEnabled(True)
+        self.txt_reason.setVisible(True)
+        self.lbl_reason.setVisible(True)
+        self.txt_reason.setEnabled(True)
+        self.lbl_reason.setEnabled(True)
 
     def inf(self):
         self.explained = True
@@ -398,6 +445,10 @@ class Ui(QtWidgets.QWidget):
         self.btn_pickup.setEnabled(False)
         self.btn_fpickup.setEnabled(False)
         self.btn_next.setEnabled(True)
+        self.txt_reason.setVisible(True)
+        self.lbl_reason.setVisible(True)
+        self.txt_reason.setEnabled(True)
+        self.lbl_reason.setEnabled(True)
 
     def pick(self):
         self.received = True
@@ -416,6 +467,10 @@ class Ui(QtWidgets.QWidget):
         self.btn_fconnect.setEnabled(False)
         self.btn_connect.setEnabled(False)
         self.btn_next.setEnabled(True)
+        self.txt_reason.setVisible(True)
+        self.lbl_reason.setVisible(True)
+        self.txt_reason.setEnabled(True)
+        self.lbl_reason.setEnabled(True)
 
     def cnt(self):
         self.connected = True
@@ -427,53 +482,49 @@ class Ui(QtWidgets.QWidget):
         self.btn_fpickup.setEnabled(True)
 
     def closeWin(self):
-        '''try:
-            self.query = "update customers set fetched = false where id = %s;"
-            self.mycursor.execute(self.query,(str(self.cust_data[7]),))
-            self.mycursor.execute("commit;")
-        except Exception as e:
-            print(e)'''
-
-        '''if self.uniqueCode.text() != '':
-            self.prodData()
-        else:
-            try:
-                self.query = "insert into "+self.table+" (cust_id, connected, received, explained, note, updated) values" \
-                                                        "(%s,"+str(self.connected)+","+str(self.received)+","+str(self.explained)+"" \
-                                                        ",%s, curdate());"
-                self.mycursor.execute(self.query, (str(self.cust_data[7]),self.note))
-                self.mycursor.execute("commit;")
-            except Exception as e:
-                print(str(e))'''
-
         self.parentWin.show()
         self.close()
 
     def saveCallResult(self):
-        self.uniqueCd = self.uniqueCode.text()
-        if self.uniqueCode.text() != '':
-            self.prodData()
+        print("dasdasd")
+        if self.note != "Pikir-pikir":
+            self.appointment_type = "-"
         else:
-            try:
-                self.query = "insert into " + self.table + " (cust_id, connected, received, explained, note, updated, updater) values" \
-                                                           "(%s," + str(self.connected) + "," + str(
-                    self.received) + "," + str(self.explained) + "" \
-                                                                 ",%s, curdate(), %s);"
-                self.query, (str(self.cust_data[7]), self.note, self.user)
-                self.mycursor.execute(self.query, (str(self.cust_data[7]), self.note, self.user))
+            self.appointment_type = self.cmb_appType.currentText()
 
-                self.mycursor.execute("commit;")
-            except Exception as e:
-                print("Masuk exc insert")
-                # print(str(e))
-                self.buttonReply = QtWidgets.QMessageBox
-                self.warning = self.buttonReply.question(self, 'WARNING', str(e),
-                                                         QtWidgets.QMessageBox.Ok)
+        if self.comment == "":
+            self.comment = self.txt_reason.toPlainText()
+
+        if self.comment!="":
+            self.uniqueCd = self.uniqueCode.text()
+            if self.uniqueCode.text() != '':
+                self.prodData()
+            else:
+                try:
+                    self.query = "insert into " + self.table + " (cust_id, connected, received, explained, note, updated, " \
+                                                               "updater, prospect, app_type, comment) values" \
+                                                               "(%s," + str(self.connected) + "," + str(self.received) + ","\
+                                                                + str(self.explained) + "" \
+                                                                ",%s, curdate(), %s, %s, %s, %s);"
+                    #self.query, (str(self.cust_data[7]), self.note, self.user)
+                    self.mycursor.execute(self.query,
+                                          (str(self.cust_data[7]), self.note, self.user, self.prospect_value,
+                                           self.appointment_type, self.comment))
+
+                    self.mycursor.execute("commit;")
+                    print("success")
+                except Exception as e:
+                    print("Masuk exc insert")
+                    # print(str(e))
+                    self.buttonReply = QtWidgets.QMessageBox
+                    self.warning = self.buttonReply.question(self, 'WARNING', str(e),
+                                                             QtWidgets.QMessageBox.Ok)
+        else:
+            self.buttonReply = QtWidgets.QMessageBox
+            self.warning = self.buttonReply.question(self, 'WARNING', "Reason cannot be empty",
+                                                     QtWidgets.QMessageBox.Ok)
 
     def next(self):
-        '''self.query = "update customers set fetched = false where id = %s;"
-        self.mycursor.execute(self.query, (str(self.cust_data[7]),))
-        self.mycursor.execute("commit;")'''
         self.saveCallResult()
         self.nextCust = QtWidgets.QWidget()
         self.nextCust.ui = Ui(self.priv, self.parentWin, self.mycursor, self.user, self.prd)
