@@ -207,6 +207,8 @@ class Ui(QtWidgets.QWidget):
         self.btn_hp.setEnabled(True)
         self.btn_wp.setEnabled(True)
         self.btn_cp.setEnabled(True)
+        self.btn_finterest.setEnabled(False)
+        self.btn_abstain.setEnabled(False)
 
     def lastDate(self):
         self.query = "SELECT updated from "+self.table+" where cust_id = "+str(self.cust_data[7])+" order by updated desc;"
@@ -398,8 +400,8 @@ class Ui(QtWidgets.QWidget):
         self.btn_cp.setEnabled(False)
 
         self.btn_interest.setEnabled(False)
-        self.btn_finterest.setEnabled(False)
-        self.btn_abstain.setEnabled(False)
+        #self.btn_finterest.setEnabled(False)
+        #self.btn_abstain.setEnabled(False)
         self.lbl_bank.setVisible(True)
         self.cmb_banks.setVisible(True)
         self.btn_next.setEnabled(True)
