@@ -129,6 +129,9 @@ class Ui(QtWidgets.QWidget):
 
             self.query = "INSERT INTO "+self.usedb+".admins(name, password, username, privilege, product) VALUES (%s, sha2(%s, 512), %s, %s, %s);"
             self.mycursor.execute(self.query, (self.name, self.passw, self.uname, self.privilege, self.prod))
+            if self.privilege == 'telle':
+                self.mycursor.execute("use " + self.usedb + ";")
+                self.mycursor.execute("CREATE TABLE telle_"+self.uname+"_"+self.prod+" (id INT NOT NULL AUTO_INCREMENT, cust_id int(20), PRIMARY KEY(id));")
             print(self.query)
             print(self.name)
             print(self.passw)

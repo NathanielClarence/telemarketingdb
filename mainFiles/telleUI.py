@@ -140,7 +140,7 @@ class Ui(QtWidgets.QWidget):
         else:
             self.btn_save.setEnabled(False)
             self.query = "select nama, telp, alamat, asal_data, no_ktp, penghasilan, cst.unique_code, id, cc, date_of_birth from " \
-                         "(select * from customers where id in (select cust_id from "+self.assign+" where assigned_telle = '"+ self.user +"' AND times_assigned < 4) " \
+                         "(select * from customers where id in (select cust_id from telle_"+self.user+"_"+self.prd+")" \
                          ") as cst left join "+self.table+ \
                          " on id = cust_id where connected = true and note not like 'Tertarik' and cust_id not in " \
                          "(select cust_id from "+self.table+" where updated between" \
@@ -159,7 +159,6 @@ class Ui(QtWidgets.QWidget):
         try:
             self.query = "select data_id, connected, received, explained, note, unique_code, updated from "+self.table+" where " \
                             "cust_id = "+str(self.cust_data[7])+" order by updated;"
-        # print(self.cust_data)
             self.mycursor.execute(self.query)
             self.n_data = self.mycursor.fetchone()
             try:
@@ -178,6 +177,7 @@ class Ui(QtWidgets.QWidget):
                 self.recontact = None
         except Exception as e:
             # print("gg")
+            print(e)
             self.buttonReply = QtWidgets.QMessageBox
             self.warning = self.buttonReply.question(self, 'WARNING', "Belum ada data",
                                                      QtWidgets.QMessageBox.Ok)
