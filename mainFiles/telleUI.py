@@ -135,7 +135,6 @@ class Ui(QtWidgets.QWidget):
         if self.targetID!= None:
             self.query = "select nama, telp, alamat, asal_data, no_ktp, penghasilan, unique_code, id, cc, date_of_birth" \
                          " from customers where id = "+str(self.targetID)+";"
-            print(self.query)
             self.btn_next.setVisible(False)
             self.btn_next.setEnabled(False)
         else:
@@ -146,7 +145,7 @@ class Ui(QtWidgets.QWidget):
                          " on id = cust_id where connected = true and note not like 'Tertarik' and cust_id not in " \
                          "(select cust_id from "+self.table+" where updated between" \
                          " date_sub(now(), interval 30 day) and now()) or cust_id is null and fetched = false order by updated;"
-            print(self.query)
+            # print(self.query)
         self.mycursor.execute(self.query)
         self.cust_data = self.mycursor.fetchone()
 
@@ -156,32 +155,32 @@ class Ui(QtWidgets.QWidget):
             self.warning = self.buttonReply.question(self, 'Tidak ada data', "Masukkan data baru",
                                                      QtWidgets.QMessageBox.Ok)
             self.closeWin()
-            # self.signal.connect(self.closeWin)
 
-        self.query = "select data_id, connected, received, explained, note, unique_code, updated from "+self.table+" where " \
-                        "cust_id = "+str(self.cust_data[7])+" order by updated;"
-        self.mycursor.execute(self.query)
-        self.n_data = self.mycursor.fetchone()
         try:
-            self.connected = self.n_data[1]
-            self.received = self.n_data[2]
-            self.explained = self.n_data[3]
-            self.note = self.n_data[4]
-            if self.n_data[5]!= None:
-                self.uniqueCode.setText(self.n_data[5])
-                self.btn_follup.setEnabled(True)
-        except:
-            self.connected = None
-            self.received = None
-            self.explained = None
-            self.note = None
-            self.recontact = None
-
-        # print("gg")
-        self.buttonReply = QtWidgets.QMessageBox
-        self.warning = self.buttonReply.question(self, 'WARNING', "Belum ada data",
-                                                 QtWidgets.QMessageBox.Ok)
-        self.closeWin()
+            self.query = "select data_id, connected, received, explained, note, unique_code, updated from "+self.table+" where " \
+                            "cust_id = "+str(self.cust_data[7])+" order by updated;"
+            self.mycursor.execute(self.query)
+            self.n_data = self.mycursor.fetchone()
+            try:
+                self.connected = self.n_data[1]
+                self.received = self.n_data[2]
+                self.explained = self.n_data[3]
+                self.note = self.n_data[4]
+                if self.n_data[5]!= None:
+                    self.uniqueCode.setText(self.n_data[5])
+                    self.btn_follup.setEnabled(True)
+            except:
+                self.connected = None
+                self.received = None
+                self.explained = None
+                self.note = None
+                self.recontact = None
+        except Exception as e:
+            # print("gg")
+            print(e)
+            self.buttonReply = QtWidgets.QMessageBox
+            self.warning = self.buttonReply.question(self, 'WARNING', "Belum ada data",
+                                                     QtWidgets.QMessageBox.Ok)
 
         # kalau ada null di db, ganti jadi ""
         for x in self.cust_data:
