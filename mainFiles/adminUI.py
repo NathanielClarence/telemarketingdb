@@ -25,6 +25,8 @@ class Ui(QtWidgets.QWidget):
         self.btn_exportDB.clicked.connect(self.exportDb)
         self.btn_exportUser.clicked.connect(self.exportTelle)
         self.btn_history.clicked.connect(self.seeHistory)
+        self.btn_assign.setVisible(False)
+        self.btn_assign.setEnabled(False)
         self.btn_assign.clicked.connect(self.assign)
 
     def assign(self):
