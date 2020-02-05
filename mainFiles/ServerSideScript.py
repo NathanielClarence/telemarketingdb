@@ -106,17 +106,17 @@ class Server():
                 self.mycursor.execute("commit;")
 
                 if self.dataLimit > 0:
-                    self.query = "insert into telle_"+x[0]+"_"+x[1]+" select id from customers where id not in (select cust_id " \
+                    self.query = "insert into telle_"+x[0]+"_"+x[1]+" select id from (select * from customers where id not in (select cust_id " \
                                  "from prod_"+x[1]+" where updater = %s) and id not in (select cust_id from prod_"+x[1]+" where updated" \
                                  " between date_sub(curdate(), interval "+self.dataReset+" day) and curdate()) and id not in (select * from assigned_"+x[1]+")" \
-                                 " limit "+str(self.dataLimit)+";"
+                                 " order by rand() limit "+str(self.dataLimit)+") as dbc;"
                     self.mycursor.execute(self.query, (x[0],))
                     self.mycursor.execute("commit;")
 
-                    self.query = "insert into assigned_"+x[1]+" select id from customers where id not in (select cust_id " \
+                    self.query = "insert into assigned_"+x[1]+" select id from (select * from customers where id not in (select cust_id " \
                              "from prod_"+x[1]+" where updater = %s) and id not in (select cust_id from prod_"+x[1]+" where updated" \
                              " between date_sub(curdate(), interval "+self.dataReset+" day) and curdate()) and id not in (select * from assigned_"+x[1]+")" \
-                             " limit "+str(self.dataLimit)+";"
+                             " order by rand() limit "+str(self.dataLimit)+") as dbc;"
                     self.mycursor.execute(self.query, (x[0],))
                     self.mycursor.execute("commit;")
 
