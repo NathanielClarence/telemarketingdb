@@ -70,7 +70,7 @@ class Ui(QtWidgets.QWidget):
             print(str(e))
 
     def initUi(self):
-        self.prospect_value = "0"
+        self.prospect_value = "2"
         self.comment = ""
         self.appointment_type = "Call"
 
@@ -198,17 +198,6 @@ class Ui(QtWidgets.QWidget):
 
         # terakhir dikontak oleh telle (bisa telle yang sama atau yang berbeda)
         self.lastDate()
-
-    def prospect(self):
-        self.note = "Tertarik"
-        self.btn_hp.setVisible(True)
-        self.btn_wp.setVisible(True)
-        self.btn_cp.setVisible(True)
-        self.btn_hp.setEnabled(True)
-        self.btn_wp.setEnabled(True)
-        self.btn_cp.setEnabled(True)
-        self.btn_finterest.setEnabled(False)
-        self.btn_abstain.setEnabled(False)
 
     def lastDate(self):
         self.query = "SELECT updated from "+self.table+" where cust_id = "+str(self.cust_data[7])+" order by updated desc;"
@@ -356,6 +345,18 @@ class Ui(QtWidgets.QWidget):
         self.btn_next.setVisible(True)
         self.btn_wp.setEnabled(False)
         self.btn_hp.setEnabled(False)
+
+
+    def prospect(self):
+        self.note = "Tertarik"
+        self.btn_hp.setVisible(True)
+        self.btn_wp.setVisible(True)
+        self.btn_cp.setVisible(True)
+        self.btn_hp.setEnabled(True)
+        self.btn_wp.setEnabled(True)
+        self.btn_cp.setEnabled(True)
+        self.btn_finterest.setEnabled(False)
+        self.btn_abstain.setEnabled(False)
 
     def abs(self):
         self.note = "Pikir-pikir"
