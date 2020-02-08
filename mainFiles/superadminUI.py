@@ -5,6 +5,7 @@ from addProduct import Ui as addPrdc
 from addBank import Ui as addBnk
 from addColumn import Ui as addCol
 from superaddtelleparam import Ui as telleParameter
+from adminDashboard import Ui as dash
 import fetcher
 
 class Ui(QtWidgets.QWidget):
@@ -37,6 +38,12 @@ class Ui(QtWidgets.QWidget):
         self.btn_addCol.clicked.connect(self.alterDB)
         self.btn_refresh.clicked.connect(self.refreshData)
         self.btn_DataTelleCircle.clicked.connect(self.telleParams)
+        self.btn_dashboard.clicked.connect(self.dashboard)
+
+    def dashboard(self):
+        self.dashWindow = QtWidgets.QWidget()
+        self.dashWindow.ui = dash(self.user, self.mycursor, self)
+        self.hide()
 
     def telleParams(self):
         self.telleParameter = QtWidgets.QDialog()
