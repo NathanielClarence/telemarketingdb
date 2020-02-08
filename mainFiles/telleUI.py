@@ -149,12 +149,13 @@ class Ui(QtWidgets.QWidget):
         self.mycursor.execute(self.query)
         self.cust_data = self.mycursor.fetchone()
 
-        if not self.cust_data:
-            # print("Masuk Cust_data empty")
+        if not (self.cust_data):
+            self.btn_history.setEnabled(False)
+            self.btn_fconnect.setEnabled(False)
+            self.btn_connect.setEnabled(False)
             self.buttonReply = QtWidgets.QMessageBox
             self.warning = self.buttonReply.question(self, 'Tidak ada data', "Masukkan data baru",
                                                      QtWidgets.QMessageBox.Ok)
-            self.closeWin()
 
         try:
             self.query = "select data_id, connected, received, explained, note, unique_code, updated from "+self.table+" where " \
@@ -176,28 +177,28 @@ class Ui(QtWidgets.QWidget):
                 self.note = None
                 self.recontact = None
         except Exception as e:
-            # print("gg")
             print(e)
             self.buttonReply = QtWidgets.QMessageBox
             self.warning = self.buttonReply.question(self, 'WARNING', "Belum ada data",
                                                      QtWidgets.QMessageBox.Ok)
 
         # kalau ada null di db, ganti jadi ""
-        for x in self.cust_data:
-            if x is None:
-                x = ""
+        if self.cust_data:
+            for x in self.cust_data:
+                if x is None:
+                    x = ""
 
-        self.in_name.setText(self.cust_data[0])
-        self.in_phone.setText(self.cust_data[1])
-        self.in_ktp.setText(self.cust_data[4])
-        self.in_alamat.setText(self.cust_data[2])
-        self.in_cc.setText(self.cust_data[8])
-        self.in_income.setText(self.cust_data[5])
-        self.in_source.setText(self.cust_data[3])
-        self.in_dob.setDate(self.cust_data[9])
+            self.in_name.setText(self.cust_data[0])
+            self.in_phone.setText(self.cust_data[1])
+            self.in_ktp.setText(self.cust_data[4])
+            self.in_alamat.setText(self.cust_data[2])
+            self.in_cc.setText(self.cust_data[8])
+            self.in_income.setText(self.cust_data[5])
+            self.in_source.setText(self.cust_data[3])
+            self.in_dob.setDate(self.cust_data[9])
 
-        # terakhir dikontak oleh telle (bisa telle yang sama atau yang berbeda)
-        self.lastDate()
+            # terakhir dikontak oleh telle (bisa telle yang sama atau yang berbeda)
+            self.lastDate()
 
     def prospect(self):
         self.note = "Tertarik"
