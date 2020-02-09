@@ -48,6 +48,9 @@ class Ui(QtWidgets.QDialog):
             self.mycursor.execute(self.query, (self.dataReset, self.dataResetParams))
             self.mycursor.execute("commit;")
 
+            self.mycursor.execute("UPDATE "+self.usedb+".params set value = '1' where name = 'NeedReset';")
+            self.mycursor.execute("commit;")
+
             self.buttonReply = QtWidgets.QMessageBox
             # self, title, message, button
             self.warning = self.buttonReply.question(self,"Penambahan Parameter", "Parameter berhasil ditambahkan.",
