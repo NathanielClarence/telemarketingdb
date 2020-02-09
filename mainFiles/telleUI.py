@@ -336,6 +336,7 @@ class Ui(QtWidgets.QWidget):
         self.btn_next.setVisible(True)
         self.btn_cp.setEnabled(False)
         self.btn_hp.setEnabled(False)
+        self.btn_wp.setEnabled(False)
         #self.btn_
 
     #Fungsi cold prospect
@@ -346,7 +347,7 @@ class Ui(QtWidgets.QWidget):
         self.btn_next.setVisible(True)
         self.btn_wp.setEnabled(False)
         self.btn_hp.setEnabled(False)
-
+        self.btn_cp.setEnabled(False)
 
     def prospect(self):
         self.note = "Tertarik"
@@ -358,6 +359,7 @@ class Ui(QtWidgets.QWidget):
         self.btn_cp.setEnabled(True)
         self.btn_finterest.setEnabled(False)
         self.btn_abstain.setEnabled(False)
+        self.btn_interest.setEnabled(False)
 
     def abs(self):
         self.note = "Pikir-pikir"
@@ -400,6 +402,7 @@ class Ui(QtWidgets.QWidget):
         #print(self.note)
         self.btn_wp.setEnabled(False)
         self.btn_cp.setEnabled(False)
+        self.btn_hp.setEnabled(False)
 
         self.btn_interest.setEnabled(False)
         #self.btn_finterest.setEnabled(False)

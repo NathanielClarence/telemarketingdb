@@ -73,7 +73,7 @@ class Ui(QtWidgets.QMainWindow):
                 self.cp = self.mycursor.fetchone()[0]
 
                 self.query = "select count(connected), sum(connected), sum(received), sum(explained)" \
-                                          " from prod_" + self.products[x][0] + " where prospect ='1' and updated = curdate();"
+                                          " from prod_" + self.products[x][0] + " where updated = curdate();"
                 self.mycursor.execute(self.query)
                 self.alldata = self.mycursor.fetchone()
 
