@@ -35,11 +35,16 @@ class Ui(QtWidgets.QWidget):
             self.mycursor.execute(self.query,(self.newuser, self.newpass))
             self.mycursor.execute("""GRANT ALL PRIVILEGES ON *. * TO %s@'%' with grant option;""", (self.newuser,))
 
+            self.query = "CREATE USER %s@'localhost' IDENTIFIED BY %s;"
+            self.mycursor.execute(self.query, (self.newuser, self.newpass))
+            self.mycursor.execute("""GRANT ALL PRIVILEGES ON *. * TO %s@'localhost' with grant option;""", (self.newuser,))
+
             self.buttonReply = QtWidgets.QMessageBox
             self.warning = self.buttonReply.question(self, 'Tambah Superadmin', "Superadmin berhasil ditambahkan",
                                                      QtWidgets.QMessageBox.Ok)
             self.closeWin()
         except Exception as e:
+            print(e)
             self.buttonReply = QtWidgets.QMessageBox
             self.warning = self.buttonReply.question(self, 'WARNING', str(e),
                                                      QtWidgets.QMessageBox.Ok)
@@ -50,13 +55,17 @@ class Ui(QtWidgets.QWidget):
         self.btn_delete.clicked.connect(self.removeSA)
 
         try:
-            self.query =  "SELECT user from user where user not like '%mysql%' and user not like 'root' and user not like" \
-                          " %s and host like '\%' and user not like %s;"
-            self.mycursor.execute(self.query, (self.user,self.dbuser))
+            self.prepare = "%mysql%"
+            self.query =  """SELECT user from user where user not like %s and user not like 'root' and user not like %s and host like '\%' and user not like %s;"""
+            print(self.dbuser)
+            print(self.user)
+            print(self.query)
+            self.mycursor.execute(self.query, (self.prepare,self.user,self.dbuser))
             self.superadmins = self.mycursor.fetchall()
             for x in self.superadmins:
                 self.cmb_superadmin.addItem(x[0])
         except Exception as e:
+            print(e)
             self.buttonReply = QtWidgets.QMessageBox
             self.warning = self.buttonReply.question(self, 'WARNING', str(e),
                                                      QtWidgets.QMessageBox.Ok)
@@ -73,6 +82,10 @@ class Ui(QtWidgets.QWidget):
                 self.query = "REVOKE ALL PRIVILEGES, GRANT OPTION FROM %s@'%';"
                 self.mycursor.execute(self.query,(self.removeadm, ))
                 self.mycursor.execute("drop user %s@'%';", (self.removeadm, ))
+
+                self.query = "REVOKE ALL PRIVILEGES, GRANT OPTION FROM %s@'localhost';"
+                self.mycursor.execute(self.query, (self.removeadm,))
+                self.mycursor.execute("drop user %s@'localhost';", (self.removeadm,))
 
                 self.buttonReply = QtWidgets.QMessageBox
                 self.warning = self.buttonReply.question(self, 'Hapus Superadmin', "Superadmin berhasil dihapus.",

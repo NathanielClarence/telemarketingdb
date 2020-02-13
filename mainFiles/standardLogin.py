@@ -1,5 +1,6 @@
 from PyQt5 import QtWidgets, uic
 import mysql.connector as conn
+import mysql.connector.locales.eng.client_error as locale
 import fetcher
 from adminUI import Ui as admPage
 from telle_postlog import Ui as telle
@@ -19,6 +20,8 @@ class Ui(QtWidgets.QDialog):
         self.user = None
         self.passw = None
         self.dbcore = None
+
+        self.loca = locale
 
     def closeWin(self):
         self.close()
