@@ -38,6 +38,9 @@ class Ui(QtWidgets.QWidget):
         self.btn_follup.clicked.connect(self.followUp)
         self.btn_recontact.clicked.connect(self.kontakUlang)
 
+        self.btn_recontact.setEnabled(False)
+        self.btn_recontact.setVisible(False)
+
     def kontakUlang(self):
         try:
             self.table = "prod_" + str(self.cmb_product.currentText())
