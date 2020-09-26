@@ -1,7 +1,7 @@
 from PyQt5 import QtWidgets, uic
 import mysql.connector as conn
 import mysql.connector.locales.eng.client_error as locale
-import MySQLdb as cnn
+#import MySQLdb as cnn
 from superadminUI import Ui as superadmin
 import fetcher
 
