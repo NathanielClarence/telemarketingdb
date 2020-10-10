@@ -1,1 +1,2 @@
-mainFiles/__pycache__/. 
+mainFiles/__pycache__/**
+venv/**

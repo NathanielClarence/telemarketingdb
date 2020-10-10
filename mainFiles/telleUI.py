@@ -72,7 +72,7 @@ class Ui(QtWidgets.QWidget):
     def initUi(self):
         self.prospect_value = "2"
         self.comment = ""
-        self.appointment_type = "Call"
+        '''self.appointment_type = "Call"
 
         self.btn_pickup.setVisible(False)
         self.btn_fpickup.setVisible(False)
@@ -93,15 +93,40 @@ class Ui(QtWidgets.QWidget):
         self.btn_hp.setVisible(False)
         self.btn_wp.setVisible(False)
         self.btn_cp.setVisible(False)
-        self.cmb_appType.setVisible(False)
+        self.cmb_appType.setVisible(False)'''
+
+        self.btn_info_0.setVisible(False)
+        self.btn_info_1.setVisible(False)
+        self.btn_pros_0.setVisible(False)
+        self.btn_pros_1.setVisible(False)
+        self.btn_pros_2.setVisible(False)
+        self.btn_pros_3.setVisible(False)
+        self.btn_pros_4.setVisible(False)
+        self.btn_leas_0.setVisible(False)
+        self.btn_leas_1.setVisible(False)
+        self.btn_notInfo_0.setVisible(False)
+        self.btn_notInfo_1.setVisible(False)
+        self.btn_notInfo_2.setVisible(False)
+
+        #below is same with prev
+        self.in_dob.setMaximumDateTime(datetime.now())
+        self.txt_reason.setVisible(False)
+        self.lbl_reason.setVisible(False)
+        self.lbl_bank.setVisible(False)
+        self.cmb_banks.setVisible(False)
+        self.lbl_hub.setVisible(False)
+        self.in_recontact.setVisible(False)
+        self.btn_save.setVisible(False)
+        self.btn_next.setEnabled(False)
 
         if self.priv != "adm":
             self.in_name.setEnabled(False)
             self.in_phone.setEnabled(False)
-            self.in_ktp.setEnabled(False)
+            self.in_merek.setEnabled(False)
             self.in_alamat.setEnabled(False)
-            self.in_cc.setEnabled(False)
-            self.in_income.setEnabled(False)
+            self.in_tipe.setEnabled(False)
+            self.in_tahun.setEnabled(False)
+            self.in_nopol.setEnabled(False)
             self.in_source.setEnabled(False)
             self.in_dob.setEnabled(False)
             self.btn_save.setVisible(False)
@@ -112,7 +137,13 @@ class Ui(QtWidgets.QWidget):
         self.btn_cls.clicked.connect(self.closeWin)
         self.btn_next.clicked.connect(self.next)
 
-        self.btn_connect.clicked.connect(self.cnt)
+        self.btn_conn_0.clicked.connect(lambda: self.connect(1))
+        self.btn_conn_1.clicked.connect(lambda: self.connect(2))
+        self.btn_conn_2.clicked.connect(lambda: self.connect(3))
+        self.btn_conn_3.clicked.connect(lambda: self.connect(4))
+        self.btn_conn_4.clicked.connect(lambda: self.connect(5))
+
+        '''self.btn_connect.clicked.connect(self.cnt)
         self.btn_fconnect.clicked.connect(self.fcnt)
         self.btn_pickup.clicked.connect(self.pick)
         self.btn_fpickup.clicked.connect(self.fpick)
@@ -127,7 +158,7 @@ class Ui(QtWidgets.QWidget):
         self.btn_abstain.clicked.connect(self.abs)
         self.btn_save.clicked.connect(self.save)
         self.btn_history.clicked.connect(self.openHistory)
-        self.btn_follup.clicked.connect(self.followUp)
+        self.btn_follup.clicked.connect(self.followUp)'''
 
         self.lbl_product.setText(self.prd.upper())
 
@@ -151,8 +182,14 @@ class Ui(QtWidgets.QWidget):
 
         if not (self.cust_data):
             self.btn_history.setEnabled(False)
-            self.btn_fconnect.setEnabled(False)
-            self.btn_connect.setEnabled(False)
+            self.btn_conn_0.setEnabled(False)
+            self.btn_conn_1.setEnabled(False)
+            self.btn_conn_2.setEnabled(False)
+            self.btn_conn_3.setEnabled(False)
+            self.btn_conn_4.setEnabled(False)
+            '''self.btn_fconnect.setEnabled(False)
+            self.btn_connect.setEnabled(False)'''
+
             self.buttonReply = QtWidgets.QMessageBox
             self.warning = self.buttonReply.question(self, 'Tidak ada data', "Masukkan data baru",
                                                      QtWidgets.QMessageBox.Ok)
@@ -163,19 +200,31 @@ class Ui(QtWidgets.QWidget):
             self.mycursor.execute(self.query)
             self.n_data = self.mycursor.fetchone()
             try:
-                self.connected = self.n_data[1]
+                '''self.connected = self.n_data[1]
                 self.received = self.n_data[2]
                 self.explained = self.n_data[3]
-                self.note = self.n_data[4]
+                self.note = self.n_data[4]'''
+                #need to revamp data below
+                '''self.connect = 
+                self.info = None
+                self.follows = None
+                self.note = None
+                self.recontact = None'''
+
                 if self.n_data[5]!= None:
                     self.uniqueCode.setText(self.n_data[5])
                     self.btn_follup.setEnabled(True)
             except:
-                self.connected = None
+                self.connected = 0
+                self.info = 0
+                self.follows = 0
+                self.note = None
+                self.recontact = None
+                '''self.connected = None
                 self.received = None
                 self.explained = None
                 self.note = None
-                self.recontact = None
+                self.recontact = None'''
         except Exception as e:
             print(e)
             self.buttonReply = QtWidgets.QMessageBox
@@ -245,21 +294,26 @@ class Ui(QtWidgets.QWidget):
                 self.data.append(str(self.in_name.text()))
                 self.data.append(str(self.in_phone.text()))
                 self.data.append(str(self.in_alamat.toPlainText()))
-                self.data.append(str(self.in_ktp.text()))
-                self.data.append(str(self.in_income.text()))
-                self.data.append(str(self.in_source.text()))
+                #self.data.append(str(self.in_ktp.text()))
+                #self.data.append(str(self.in_income.text()))
+                #self.data.append(str(self.in_source.text()))
                 #self.data.append(self.uniqueCode.text())
-                self.data.append(str(self.in_cc.text()))
+                #self.data.append(str(self.in_cc.text()))
                 self.data.append(self.in_dob.dateTime().toString('yyyy-MM-dd'))
+                self.data.append(self.in_merek.text())
+                self.data.append(self.in_tipe.text())
+                self.data.append(self.int_tahun.text())
+                self.data.append(self.in_nopol.text())
                 self.uniqueCd = self.uniqueCode.text()
                 if self.uniqueCd == "":
                     self.uniqueCd = None
                 for x in range(len(self.data)):
                     if self.data[x] == '':
                         self.data[x]=None
-
-                self.query = "UPDATE customers set nama = %s, telp = %s, alamat = %s, asal_data = %s, no_ktp = %s, " \
-                             "penghasilan = %s, cc = %s, date_of_birth = %s where id = " + str(self.cust_data[7]) +";"
+                self.query = "UPDATE customers SET nama = %s, telp = %s, alamat = %s, date_of_birth = %s, merek_mobil = %s," \
+                             "tipe_mobil = %s, tahun_mobil = %s, nopol = %s, asal_data = %s where id = " + str(self.cust_data[7]) + ";"
+                #self.query = "UPDATE customers set nama = %s, telp = %s, alamat = %s, asal_data = %s, no_ktp = %s, " \
+                #             "penghasilan = %s, cc = %s, date_of_birth = %s where id = " + str(self.cust_data[7]) +";"
                 self.inse = (self.data[0], self.data[1], self.data[2], self.data[5], self.data[3], self.data[4], self.data[6], self.data[7])
                 self.mycursor.execute(self.query, self.inse)
                 self.mycursor.execute("commit;")
@@ -328,7 +382,84 @@ class Ui(QtWidgets.QWidget):
             self.warning = self.buttonReply.question(self, 'WARNING', str(e),
                                                      QtWidgets.QMessageBox.Ok)
 
-    #Fungsi warm prospect
+    def connect(self, cnn):
+        self.btn_conn_0.setEnabled(False)
+        self.btn_conn_1.setEnabled(False)
+        self.btn_conn_2.setEnabled(False)
+        self.btn_conn_3.setEnabled(False)
+        self.btn_conn_4.setEnabled(False)
+
+        self.connected = cnn
+
+        #open next phase if cnn 1
+        if (cnn == 1):
+            self.btn_info_0.setEnabled(True)
+            self.btn_info_1.setEnabled(True)
+            #set visible
+            self.btn_info_0.setVisible(True)
+            self.btn_info_1.setVisible(True)
+
+    def informed(self, inf):
+        self.btn_info_0.setEnabled(False)
+        self.btn_info_1.setEnabled(False)
+        self.info = inf
+
+        #yes
+        if (inf == 1):
+            self.btn_pros_0.setEnabled(True)
+            self.btn_pros_1.setEnabled(True)
+            self.btn_pros_2.setEnabled(True)
+            self.btn_pros_3.setEnabled(True)
+            self.btn_pros_4.setEnabled(True)
+
+            #set visible
+            self.btn_pros_0.setVisible(True)
+            self.btn_pros_1.setVisible(True)
+            self.btn_pros_2.setVisible(True)
+            self.btn_pros_3.setVisible(True)
+            self.btn_pros_4.setVisible(True)
+
+        elif (inf == 2):
+            self.btn_notInfo_0.setEnabled(True)
+            self.btn_notInfo_1.setEnabled(True)
+            self.btn_notInfo_2.setEnabled(True)
+
+            #set visible
+            self.btn_notInfo_0.setVisible(True)
+            self.btn_notInfo_1.setVisible(True)
+            self.btn_notInfo_2.setVisible(True)
+
+    def followInfo(self, foll):
+        self.btn_pros_0.setEnabled(False)
+        self.btn_pros_1.setEnabled(False)
+        self.btn_pros_2.setEnabled(False)
+        self.btn_pros_3.setEnabled(False)
+        self.btn_pros_4.setEnabled(False)
+
+        self.follows = foll
+
+        #dont forget to edit the db and process here
+        if (foll == 1):
+            #continue to leasing
+            self.lbl_bank.setVisible(True)
+            self.cmb_bank.setVisible(True)
+            self.cmb_bank.setEnabled(True)
+        elif (foll == 5):
+            self.lbl_reason.setVisible(True)
+            self.txt_reason.setVisible(True)
+            self.txt_reason.setEnabled(True)
+        else:
+            self.lbl_hub.setVisible(True)
+            self.in_recontact.setVisible(True)
+            self.in_recontact.setEnabled(True)
+
+    def noInfo(self, nIf):
+        self.btn_notInfo_0.setEnabled(False)
+        self.btn_notInfo_1.setEnabled(False)
+        self.btn_notInfo_2.setEnabled(False)
+
+        self.follows = nIf
+    '''#Fungsi warm prospect
     def warmProspect(self):
         self.prospect_value = "2"
         self.comment = "Warm Prospect"
@@ -487,7 +618,7 @@ class Ui(QtWidgets.QWidget):
         self.btn_fpickup.setVisible(True)
         self.btn_pickup.setEnabled(True)
         self.btn_fpickup.setEnabled(True)
-
+'''
     def closeWin(self):
         self.parentWin.show()
         self.close()
