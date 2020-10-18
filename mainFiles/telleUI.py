@@ -164,8 +164,10 @@ class Ui(QtWidgets.QWidget):
 
         #get customer data
         if self.targetID!= None:
-            self.query = "select nama, telp, alamat, asal_data, no_ktp, penghasilan, unique_code, id, cc, date_of_birth" \
-                         " from customers where id = "+str(self.targetID)+";"
+            #nama, telp, date_of_birth, alamat, merek_mobil, tipe_mobil, tahun_mobil, nopol, asal_data
+            #self.query = "select nama, telp, alamat, asal_data, no_ktp, penghasilan, unique_code, id, cc, date_of_birth" \
+            self.query = "select unique_code, nama, telp, date_of_birth, alamat, merek_mobil, tipe_mobil, tahun_mobil, nopol," \
+                         " asal_data, id from customers where id = "+str(self.targetID)+";"
             self.btn_next.setVisible(False)
             self.btn_next.setEnabled(False)
         else:
@@ -211,8 +213,8 @@ class Ui(QtWidgets.QWidget):
                 self.note = None
                 self.recontact = None'''
 
-                if self.n_data[5]!= None:
-                    self.uniqueCode.setText(self.n_data[5])
+                if self.n_data[0]!= None:
+                    self.uniqueCode.setText(self.n_data[0])
                     self.btn_follup.setEnabled(True)
             except:
                 self.connected = 0
@@ -236,15 +238,17 @@ class Ui(QtWidgets.QWidget):
             for x in self.cust_data:
                 if x is None:
                     x = ""
+            #select unique_code, nama, telp, date_of_birth, alamat, merek_mobil, tipe_mobil, tahun_mobil, nopol, asal
+            self.in_name.setText(self.cust_data[1])
+            self.in_phone.setText(self.cust_data[2])
+            self.in_dob.setDate(self.cust_data[3])
+            self.in_alamat.setText(self.cust_data[4])
+            self.in_merek.setText(self.cust_data[5])
+            self.in_tipe.setText(self.cust_data[6])
+            self.in_tahun.setText(self.cust_data[7])
+            self.in_nopol.setText(self.cust_data[8])
+            self.in_source.setText(self.cust_data[9])
 
-            self.in_name.setText(self.cust_data[0])
-            self.in_phone.setText(self.cust_data[1])
-            self.in_ktp.setText(self.cust_data[4])
-            self.in_alamat.setText(self.cust_data[2])
-            self.in_cc.setText(self.cust_data[8])
-            self.in_income.setText(self.cust_data[5])
-            self.in_source.setText(self.cust_data[3])
-            self.in_dob.setDate(self.cust_data[9])
 
             # terakhir dikontak oleh telle (bisa telle yang sama atau yang berbeda)
             self.lastDate()
@@ -262,21 +266,21 @@ class Ui(QtWidgets.QWidget):
         if self.prd.lower() == 'pl':
             self.saveCallResult()
             self.follupWindow = QtWidgets.QWidget()
-            self.follupWindow.ui = follupPL(self.priv, self.parentWin, self.mycursor, self.user, self.prd, str(self.cust_data[7]))
+            self.follupWindow.ui = follupPL(self.priv, self.parentWin, self.mycursor, self.user, self.prd, str(self.cust_data[10]))
             self.close()
         else:
             self.saveCallResult()
             self.follupWindow = QtWidgets.QWidget()
             self.follupWindow.ui = follupCC(self.priv, self.parentWin, self.mycursor, self.user, self.prd,
-                                            str(self.cust_data[7]))
+                                            str(self.cust_data[10]))
             self.close()
 
     def openHistory(self):
         try:
-            self.query = "select id, nama, telp, alamat, asal_data, fetched, no_ktp, penghasilan, " + self.table + ".unique_code, cc" \
+            self.query = "select id, nama, telp, alamat, asal_data, fetched, merek_mobil, tipe_mobil, " + self.table + ".unique_code, tahun_mobil" \
                             ", updated, followup_date, note, berkas, data_masuk, approval, recontact from customers as cst left " \
                             "join prod_cc on id = cust_id where cust_id = %s order by updated;"
-            self.mycursor.execute(self.query,(self.cust_data[7],))
+            self.mycursor.execute(self.query,(self.cust_data[10],))
             self.result = self.mycursor.fetchall()
             self.follow = QtWidgets.QWidget()
             self.follow.ui = srcHistory(self.priv, self, self.mycursor, self.result, self.user,
@@ -304,6 +308,7 @@ class Ui(QtWidgets.QWidget):
                 self.data.append(self.in_tipe.text())
                 self.data.append(self.int_tahun.text())
                 self.data.append(self.in_nopol.text())
+                self.data.append(str(self.in_source.text()))
                 self.uniqueCd = self.uniqueCode.text()
                 if self.uniqueCd == "":
                     self.uniqueCd = None
@@ -311,10 +316,11 @@ class Ui(QtWidgets.QWidget):
                     if self.data[x] == '':
                         self.data[x]=None
                 self.query = "UPDATE customers SET nama = %s, telp = %s, alamat = %s, date_of_birth = %s, merek_mobil = %s," \
-                             "tipe_mobil = %s, tahun_mobil = %s, nopol = %s, asal_data = %s where id = " + str(self.cust_data[7]) + ";"
+                             "tipe_mobil = %s, tahun_mobil = %s, nopol = %s, asal_data = %s where id = " + str(self.cust_data[10]) + ";"
                 #self.query = "UPDATE customers set nama = %s, telp = %s, alamat = %s, asal_data = %s, no_ktp = %s, " \
                 #             "penghasilan = %s, cc = %s, date_of_birth = %s where id = " + str(self.cust_data[7]) +";"
-                self.inse = (self.data[0], self.data[1], self.data[2], self.data[5], self.data[3], self.data[4], self.data[6], self.data[7])
+                self.inse = (self.data[0], self.data[1], self.data[2], self.data[3], self.data[4], self.data[5],
+                             self.data[6], self.data[7], self.data[8])
                 self.mycursor.execute(self.query, self.inse)
                 self.mycursor.execute("commit;")
             except Exception as e:
@@ -351,7 +357,7 @@ class Ui(QtWidgets.QWidget):
                     self.query += self.addtColumn[x][0]+"= %s "
                 else:
                     self.query += self.addtColumn[x][0] + "= %s, "
-            self.query += "WHERE id = "+str(self.cust_data[7])+";"
+            self.query += "WHERE id = "+str(self.cust_data[10])+";"
             self.mycursor.execute(self.query, self.newDat)
             self.mycursor.execute("commit;")
         except Exception as e:
@@ -367,13 +373,13 @@ class Ui(QtWidgets.QWidget):
             self.bankChoice = str(self.cmb_banks.currentText())
             self.query = "insert into "+self.table+" (cust_id, connected, received, explained, note, unique_code, updated, updater, recontact, bank" \
                                                    ", prospect, app_type, comment) values" \
-                                                    "(%s,"+str(self.connected)+","+str(self.received)+","+str(self.explained)+"" \
+                                                    "(%s,"+str(self.connected)+","+str(self.info)+","+str(self.follows)+"" \
                                                     ",%s,%s, curdate(), %s, %s, %s, %s, %s, %s);"
             self.uniqueCd = self.uniqueCode.text()
             if self.uniqueCd == "":
                 self.uniqueCd = None
-            self.mycursor.execute(self.query, (str(self.cust_data[7]),self.note,self.uniqueCd, self.user, self.recontact
-                                               , self.bankChoice, self.prospect_value, self.appointment_type, self.comment))
+            self.mycursor.execute(self.query, (str(self.cust_data[10]),self.note,self.uniqueCd, self.user, self.recontact
+                                               , self.bankChoice, self.follows, self.appointment_type, self.comment))
             self.mycursor.execute("commit;")
         except Exception as e:
             #print(str(e))
@@ -439,12 +445,12 @@ class Ui(QtWidgets.QWidget):
         self.follows = foll
 
         #dont forget to edit the db and process here
-        if (foll == 1):
+        if (str(foll) == "1"):
             #continue to leasing
             self.lbl_bank.setVisible(True)
             self.cmb_bank.setVisible(True)
             self.cmb_bank.setEnabled(True)
-        elif (foll == 5):
+        elif (str(foll) == "5"):
             self.lbl_reason.setVisible(True)
             self.txt_reason.setVisible(True)
             self.txt_reason.setEnabled(True)
@@ -453,12 +459,43 @@ class Ui(QtWidgets.QWidget):
             self.in_recontact.setVisible(True)
             self.in_recontact.setEnabled(True)
 
+        if str(foll) == "1":
+            self.note = "Hot Prospect"
+            self.btn_next.setEnabled(True)
+            self.btn_follup.setEnabled(True)
+
+            try:
+                self.query = "SELECT nama_bank from bank_" + self.prd + ";"
+                self.mycursor.execute(self.query)
+                self.banks = self.mycursor.fetchall()
+                for x in self.banks:
+                    self.cmb_banks.addItem(x[0])
+            except Exception as e:
+                self.buttonReply = QtWidgets.QMessageBox
+                self.warning = self.buttonReply.question(self, 'WARNING', str(e),
+                                                         QtWidgets.QMessageBox.Ok)
+        elif str(foll) == "2":
+            self.note = "Warm Prospect"
+        elif str(foll) == "3":
+            self.note = "Pertimbangan"
+        elif str(foll) == "4":
+            self.note = "Telepon Ulang"
+        else:
+            self.note = "Tidak Tertarik"
+
     def noInfo(self, nIf):
         self.btn_notInfo_0.setEnabled(False)
         self.btn_notInfo_1.setEnabled(False)
         self.btn_notInfo_2.setEnabled(False)
 
         self.follows = nIf
+
+        if str(nIf) == "6":
+            self.note = "Salah Sambung"
+        elif str(nIf) == "7":
+            self.note = "Reject"
+        else:
+            self.note = "Sibuk"
     '''#Fungsi warm prospect
     def warmProspect(self):
         self.prospect_value = "2"
@@ -639,14 +676,15 @@ class Ui(QtWidgets.QWidget):
                 self.prodData()
             else:
                 try:
+                    #vars = connected, info, follows
                     self.query = "insert into " + self.table + " (cust_id, connected, received, explained, note, updated, " \
                                                                "updater, prospect, app_type, comment) values" \
-                                                               "(%s," + str(self.connected) + "," + str(self.received) + ","\
-                                                                + str(self.explained) + "" \
+                                                               "(%s," + str(self.connected) + "," + str(self.info) + ","\
+                                                                + str(self.follows) + "" \
                                                                 ",%s, curdate(), %s, %s, %s, %s);"
                     #self.query, (str(self.cust_data[7]), self.note, self.user)
                     self.mycursor.execute(self.query,
-                                          (str(self.cust_data[7]), self.note, self.user, self.prospect_value,
+                                          (str(self.cust_data[10]), self.note, self.user, str(self.follows),
                                            self.appointment_type, self.comment))
 
                     self.mycursor.execute("commit;")
