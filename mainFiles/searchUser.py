@@ -61,21 +61,21 @@ class Ui(QtWidgets.QWidget):
                 self.table = "prod_" + str(self.product)
                 if self.uniqueCode == None and self.phone == None and self.name == None:
                     if str(self.cmb_prod.currentText()).lower() == "pl":
-                        self.query = "select id, nama, telp, alamat, asal_data, fetched, no_ktp, penghasilan, " + self.table + ".unique_code, cc" \
+                        self.query = "select id, nama, telp, alamat, asal_data, fetched, nopol, penghasilan, " + self.table + ".unique_code, cc" \
                                      " from (select * from customers where fetched = 0) as cst left join " + self.table + " on id = cust_id where note = 'Tertarik'" \
                                      " and vis_approval like '2' limit 50;"
                     else:
-                        self.query = "select id, nama, telp, alamat, asal_data, fetched, no_ktp, penghasilan, " + self.table + ".unique_code, cc" \
+                        self.query = "select id, nama, telp, alamat, asal_data, fetched, nopol, penghasilan, " + self.table + ".unique_code, cc" \
                                      " from (select * from customers where fetched = 0) as cst left join " + self.table + " on id = cust_id where note = 'Tertarik'" \
                                      " and approval like '2' limit 50;"
                     self.mycursor.execute(self.query)
                 else:
                     if str(self.cmb_prod.currentText()).lower() == "pl":
-                        self.query = "select id, nama, telp, alamat, asal_data, fetched, no_ktp, penghasilan, " + self.table + ".unique_code, cc" \
+                        self.query = "select id, nama, telp, alamat, asal_data, fetched, nopol, penghasilan, " + self.table + ".unique_code, cc" \
                                      " from (select * from customers where fetched = 0) as cst left join " + self.table + " on id = cust_id where note = 'Tertarik'" \
                                      " and vis_approval like '2' and (nama like %s or telp like %s or "+self.table+".unique_code like %s);"
                     else:
-                        self.query = "select id, nama, telp, alamat, asal_data, fetched, no_ktp, penghasilan, " + self.table + ".unique_code, cc" \
+                        self.query = "select id, nama, telp, alamat, asal_data, fetched, nopol, penghasilan, " + self.table + ".unique_code, cc" \
                                      " from (select * from customers where fetched = 0) as cst left join " + self.table + " on id = cust_id where note = 'Tertarik'" \
                                      " and approval like '2' and (nama like %s or telp like %s or "+self.table+".unique_code like %s);"
                     self.mycursor.execute(self.query, (self.name, self.phone, self.uniqueCode))
