@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>753</width>
-    <height>592</height>
+    <width>752</width>
+    <height>571</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
      <x>10</x>
      <y>10</y>
      <width>731</width>
-     <height>571</height>
+     <height>551</height>
     </rect>
    </property>
    <property name="widgetResizable">
@@ -29,16 +29,16 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>0</y>
-      <width>715</width>
-      <height>621</height>
+      <y>-15</y>
+      <width>832</width>
+      <height>667</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout_2">
      <item row="0" column="0">
       <layout class="QGridLayout" name="gridLayout">
-       <item row="11" column="4">
-        <widget class="QPushButton" name="btn_save">
+       <item row="8" column="3">
+        <widget class="QPushButton" name="btn_leas_1">
          <property name="enabled">
           <bool>false</bool>
          </property>
@@ -48,19 +48,64 @@
           </font>
          </property>
          <property name="text">
-          <string>Save</string>
+          <string>Telp Ulang</string>
          </property>
         </widget>
        </item>
-       <item row="3" column="2">
-        <widget class="QPushButton" name="btn_history">
+       <item row="4" column="0">
+        <widget class="QLabel" name="lbl_ket">
          <property name="font">
           <font>
            <pointsize>10</pointsize>
           </font>
          </property>
          <property name="text">
-          <string>Histori Nasabah</string>
+          <string>Keterangan</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="7" rowspan="4">
+        <widget class="QTextEdit" name="txt_reason">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="4">
+        <widget class="QPushButton" name="btn_conn_2">
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Salah Sambung</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="3">
+        <widget class="QPushButton" name="btn_info_1">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Tidak</string>
          </property>
         </widget>
        </item>
@@ -76,8 +121,20 @@
          </property>
         </widget>
        </item>
-       <item row="11" column="3">
-        <widget class="QPushButton" name="btn_follup">
+       <item row="4" column="2">
+        <widget class="QPushButton" name="btn_conn_0">
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Sambung</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="2">
+        <widget class="QPushButton" name="btn_info_0">
          <property name="enabled">
           <bool>false</bool>
          </property>
@@ -87,11 +144,193 @@
           </font>
          </property>
          <property name="text">
-          <string>Follow Up</string>
+          <string>Info Tersampaikan</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="0" colspan="5">
+       <item row="12" column="7">
+        <widget class="QPushButton" name="btn_cls">
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Close without Saving</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="7">
+        <widget class="QLabel" name="lbl_reason">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Reason</string>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="4">
+        <widget class="QPushButton" name="btn_pros_2">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Pertimbangan</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0" colspan="3">
+        <widget class="QLabel" name="label_9">
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>History</string>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="2">
+        <widget class="QPushButton" name="btn_leas_0">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Leasing</string>
+         </property>
+        </widget>
+       </item>
+       <item row="10" column="5">
+        <widget class="QLabel" name="lbl_hub">
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Hubungi lagi:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="6">
+        <widget class="QPushButton" name="btn_pros_4">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Not Interested</string>
+         </property>
+        </widget>
+       </item>
+       <item row="9" column="3">
+        <widget class="QPushButton" name="btn_notInfo_1">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Reject</string>
+         </property>
+        </widget>
+       </item>
+       <item row="11" column="6">
+        <widget class="QPushButton" name="btn_save">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Save</string>
+         </property>
+        </widget>
+       </item>
+       <item row="11" column="7">
+        <widget class="QPushButton" name="btn_next">
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Save &amp;&amp; Next</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0" colspan="7">
+        <layout class="QFormLayout" name="addData_FLayout"/>
+       </item>
+       <item row="1" column="7">
+        <layout class="QFormLayout" name="formLayout_2">
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_11">
+           <property name="text">
+            <string>Last Contacted</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QDateEdit" name="dt_lastContact">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="displayFormat">
+            <string>dd/MM/yyyy</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="7" column="5">
+        <widget class="QPushButton" name="btn_pros_3">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Telp Ulang</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" colspan="7">
         <layout class="QFormLayout" name="formLayout">
          <item row="1" column="0">
           <widget class="QLabel" name="label">
@@ -146,33 +385,12 @@
             </font>
            </property>
            <property name="text">
-            <string>No HP</string>
+            <string>Telp</string>
            </property>
           </widget>
          </item>
          <item row="3" column="1">
           <widget class="QLineEdit" name="in_phone">
-           <property name="font">
-            <font>
-             <pointsize>10</pointsize>
-            </font>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="0">
-          <widget class="QLabel" name="label_4">
-           <property name="font">
-            <font>
-             <pointsize>10</pointsize>
-            </font>
-           </property>
-           <property name="text">
-            <string>No KTP</string>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="1">
-          <widget class="QLineEdit" name="in_ktp">
            <property name="font">
             <font>
              <pointsize>10</pointsize>
@@ -228,7 +446,28 @@
            </property>
           </widget>
          </item>
-         <item row="7" column="0">
+         <item row="9" column="0">
+          <widget class="QLabel" name="label_4">
+           <property name="font">
+            <font>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Merek Mobil</string>
+           </property>
+          </widget>
+         </item>
+         <item row="9" column="1">
+          <widget class="QLineEdit" name="in_merek">
+           <property name="font">
+            <font>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+          </widget>
+         </item>
+         <item row="10" column="0">
           <widget class="QLabel" name="label_6">
            <property name="font">
             <font>
@@ -236,12 +475,12 @@
             </font>
            </property>
            <property name="text">
-            <string>Existing CC</string>
+            <string>Tipe Mobil</string>
            </property>
           </widget>
          </item>
-         <item row="7" column="1">
-          <widget class="QLineEdit" name="in_cc">
+         <item row="10" column="1">
+          <widget class="QLineEdit" name="in_tipe">
            <property name="font">
             <font>
              <pointsize>10</pointsize>
@@ -249,7 +488,7 @@
            </property>
           </widget>
          </item>
-         <item row="8" column="0">
+         <item row="11" column="0">
           <widget class="QLabel" name="label_7">
            <property name="font">
             <font>
@@ -257,12 +496,12 @@
             </font>
            </property>
            <property name="text">
-            <string>Penghasilan</string>
+            <string>Tahun</string>
            </property>
           </widget>
          </item>
-         <item row="8" column="1">
-          <widget class="QLineEdit" name="in_income">
+         <item row="11" column="1">
+          <widget class="QLineEdit" name="in_tahun">
            <property name="font">
             <font>
              <pointsize>10</pointsize>
@@ -270,7 +509,7 @@
            </property>
           </widget>
          </item>
-         <item row="9" column="0">
+         <item row="13" column="0">
           <widget class="QLabel" name="label_8">
            <property name="font">
             <font>
@@ -282,8 +521,29 @@
            </property>
           </widget>
          </item>
-         <item row="9" column="1">
+         <item row="13" column="1">
           <widget class="QLineEdit" name="in_source">
+           <property name="font">
+            <font>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+          </widget>
+         </item>
+         <item row="12" column="0">
+          <widget class="QLabel" name="label_12">
+           <property name="font">
+            <font>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Nomor Polisi</string>
+           </property>
+          </widget>
+         </item>
+         <item row="12" column="1">
+          <widget class="QLineEdit" name="in_nopol">
            <property name="font">
             <font>
              <pointsize>10</pointsize>
@@ -293,20 +553,41 @@
          </item>
         </layout>
        </item>
-       <item row="3" column="0" colspan="2">
-        <widget class="QLabel" name="label_9">
+       <item row="4" column="6">
+        <widget class="QPushButton" name="btn_conn_4">
          <property name="font">
           <font>
            <pointsize>10</pointsize>
           </font>
          </property>
          <property name="text">
-          <string>History</string>
+          <string>Tulalit/Error</string>
          </property>
         </widget>
        </item>
-       <item row="8" column="2">
-        <widget class="QPushButton" name="btn_finterest">
+       <item row="4" column="5">
+        <widget class="QPushButton" name="btn_conn_3">
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Sibuk</string>
+         </property>
+        </widget>
+       </item>
+       <item row="10" column="2">
+        <widget class="QComboBox" name="cmb_banks">
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="3">
+        <widget class="QPushButton" name="btn_pros_1">
          <property name="enabled">
           <bool>false</bool>
          </property>
@@ -316,58 +597,11 @@
           </font>
          </property>
          <property name="text">
-          <string>Tidak</string>
+          <string>Warm Prospect</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="5">
-        <layout class="QFormLayout" name="formLayout_2">
-         <item row="0" column="0">
-          <widget class="QLabel" name="label_11">
-           <property name="text">
-            <string>Last Contacted</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QDateEdit" name="dt_lastContact">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>10</pointsize>
-            </font>
-           </property>
-           <property name="displayFormat">
-            <string>dd/MM/yyyy</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item row="10" column="1">
-        <widget class="QComboBox" name="cmb_banks">
-         <property name="font">
-          <font>
-           <pointsize>10</pointsize>
-          </font>
-         </property>
-        </widget>
-       </item>
-       <item row="10" column="3">
-        <widget class="QLabel" name="lbl_hub">
-         <property name="font">
-          <font>
-           <pointsize>10</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Hubungi lagi:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="10" column="4">
+       <item row="10" column="6">
         <widget class="QDateTimeEdit" name="in_recontact">
          <property name="enabled">
           <bool>false</bool>
@@ -385,59 +619,8 @@
          </property>
         </widget>
        </item>
-       <item row="7" column="1">
-        <widget class="QPushButton" name="btn_info">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>10</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Info Tersampaikan</string>
-         </property>
-        </widget>
-       </item>
        <item row="11" column="5">
-        <widget class="QPushButton" name="btn_next">
-         <property name="font">
-          <font>
-           <pointsize>10</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Save &amp;&amp; Next</string>
-         </property>
-        </widget>
-       </item>
-       <item row="12" column="5">
-        <widget class="QPushButton" name="btn_cls">
-         <property name="font">
-          <font>
-           <pointsize>10</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Close without Saving</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="2">
-        <widget class="QPushButton" name="btn_fconnect">
-         <property name="font">
-          <font>
-           <pointsize>10</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Tidak</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="5">
-        <widget class="QLabel" name="lbl_reason">
+        <widget class="QPushButton" name="btn_follup">
          <property name="enabled">
           <bool>false</bool>
          </property>
@@ -447,126 +630,12 @@
           </font>
          </property>
          <property name="text">
-          <string>Reason</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="1">
-        <widget class="QPushButton" name="btn_connect">
-         <property name="font">
-          <font>
-           <pointsize>10</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Sambung</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="0">
-        <widget class="QLabel" name="lbl_ket">
-         <property name="font">
-          <font>
-           <pointsize>10</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Keterangan</string>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="1">
-        <widget class="QPushButton" name="btn_pickup">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>10</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Angkat</string>
+          <string>Follow Up</string>
          </property>
         </widget>
        </item>
        <item row="7" column="2">
-        <widget class="QPushButton" name="btn_finfo">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>10</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Tidak</string>
-         </property>
-        </widget>
-       </item>
-       <item row="8" column="3">
-        <widget class="QPushButton" name="btn_abstain">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>10</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Appointment</string>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="2">
-        <widget class="QPushButton" name="btn_fpickup">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>10</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Tidak</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0" colspan="5">
-        <layout class="QFormLayout" name="addData_FLayout"/>
-       </item>
-       <item row="8" column="1">
-        <widget class="QPushButton" name="btn_interest">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>10</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Prospek</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="5">
-        <widget class="QLabel" name="lbl_product">
-         <property name="font">
-          <font>
-           <pointsize>10</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>ProductCode</string>
-         </property>
-        </widget>
-       </item>
-       <item row="9" column="1">
-        <widget class="QPushButton" name="btn_hp">
+        <widget class="QPushButton" name="btn_pros_0">
          <property name="enabled">
           <bool>false</bool>
          </property>
@@ -580,8 +649,59 @@
          </property>
         </widget>
        </item>
+       <item row="4" column="3">
+        <widget class="QPushButton" name="btn_conn_1">
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Tidak Tersambung</string>
+         </property>
+        </widget>
+       </item>
+       <item row="9" column="4">
+        <widget class="QPushButton" name="btn_notInfo_2">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Sibuk</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="7">
+        <widget class="QLabel" name="lbl_product">
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>ProductCode</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="3">
+        <widget class="QPushButton" name="btn_history">
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Histori Nasabah</string>
+         </property>
+        </widget>
+       </item>
        <item row="9" column="2">
-        <widget class="QPushButton" name="btn_wp">
+        <widget class="QPushButton" name="btn_notInfo_0">
          <property name="enabled">
           <bool>false</bool>
          </property>
@@ -591,63 +711,8 @@
           </font>
          </property>
          <property name="text">
-          <string>Warm Prospect</string>
+          <string>Salah Sambung</string>
          </property>
-        </widget>
-       </item>
-       <item row="9" column="3">
-        <widget class="QPushButton" name="btn_cp">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>10</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Cold Prospect</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="5" rowspan="5">
-        <widget class="QTextEdit" name="txt_reason">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>10</pointsize>
-          </font>
-         </property>
-        </widget>
-       </item>
-       <item row="8" column="4">
-        <widget class="QComboBox" name="cmb_appType">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>10</pointsize>
-          </font>
-         </property>
-         <item>
-          <property name="text">
-           <string>Call</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Visit</string>
-          </property>
-         </item>
         </widget>
        </item>
       </layout>

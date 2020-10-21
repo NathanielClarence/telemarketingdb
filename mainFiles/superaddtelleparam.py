@@ -57,8 +57,8 @@ class Ui(QtWidgets.QDialog):
                                                      QtWidgets.QMessageBox.Ok)
             self.closeWin()
         except Exception as e:
-            print("KKKKKKKKKKKKKKKKKKKKKKKKKKKK")
-            print(e)
+            #print("KKKKKKKKKKKKKKKKKKKKKKKKKKKK")
+            #print(e)
             self.buttonReply = QtWidgets.QMessageBox
             self.warning = self.buttonReply.question(self, 'WARNING', str(e),
                                                      QtWidgets.QMessageBox.Ok)
