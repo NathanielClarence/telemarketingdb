@@ -66,10 +66,15 @@ class Ui(QtWidgets.QWidget):
         try:
             self.mycursor.execute("SELECT max(id) FROM CUSTOMERS;")
             self.result = self.mycursor.fetchone()
-            self.unicode = datetime.date.today().strftime("%y") + datetime.date.today().strftime("%m") + "/" + str(
-                self.result[0] + 1).zfill(9)
+            if self.result[0] != None:
+                self.unicode = datetime.date.today().strftime("%y") + datetime.date.today().strftime("%m") + "/" + str(
+                    self.result[0] + 1).zfill(9)
+            else:
+                self.unicode = datetime.date.today().strftime("%y") + datetime.date.today().strftime("%m") + "/" + str(1).zfill(9)
             self.uniqueCode.setText(self.unicode)
         except Exception as e:
+            print("rebind")
+            print(len(self.result))
             self.buttonReply = QtWidgets.QMessageBox
             self.warning = self.buttonReply.question(self, 'WARNING', str(e),
                                                      QtWidgets.QMessageBox.Ok)
@@ -149,12 +154,16 @@ class Ui(QtWidgets.QWidget):
             finally:
                 self.in_name.setText("")
                 self.in_phone.setText("")
-                self.in_id.setText("")
+                #self.in_id.setText("")
                 self.in_dob.setDate(QtCore.QDate(2000, 1, 1))
                 self.in_address.setText("")
-                self.in_cc.setText("")
-                self.in_earning.setText("")
+                #self.in_cc.setText("")
+               # self.in_earning.setText("")
                 self.cmb_source.setCurrentIndex(0)
+                self.in_merek.setText("")
+                self.in_tipe.setText("")
+                self.in_tahun.setText("")
+                self.in_nopol.setText("")
                 self.rebindUniqueNum()
 
     def addtData(self):
